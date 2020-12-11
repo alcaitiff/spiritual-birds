@@ -1,33 +1,40 @@
 import BG from '../Background';
-import MyPlayer from '../Player';
+import Player from '../Player';
 import Enemies from '../Enemies';
 import config from '../config.json';
+import LifeBar from '../LifeBar';
 const Main = {
   key: 'Main',
   preload() { },
   init() { },
   create() {
-    BG.create(this);
-    MyPlayer.create(this);
-    Enemies.create(this);
     this.cursors = this.input.keyboard.createCursorKeys();
-    this.scoreText = this.add.text(config.width / 2 - 20, 10, 'SCORE:  ' + this.myPlayer.score);
-    this.bulletsText = this.add.text(20, 10, 'Bullets:  ' + (this.myPlayer.maxBullets - this.myPlayer.bullets.length));
+    this.BG = BG.create(this, true);
+    this.Player = Player.create(this, this.cursors);
+    this.Enemies = Enemies.create(this, this.Player);
+    this.scoreText = this.add.text(config.width / 2 - 20, 10, 'SCORE:  ' + this.Player.score);
+    this.bulletsText = this.add.text(config.width - 150, 10, '');
+    this.HPText = this.add.text(20, 10, '');
+    this.LifeBar = LifeBar.create(this, 40, 10);
     this.input.keyboard.on('keydown-' + 'P', function() {
-      this.music.pause();
+      this.BG.music.pause();
       this.scene.sleep();
       this.scene.launch('Pause');
     }, this);
   },
   update() {
-    MyPlayer.update(this);
-    BG.update(this);
-    Enemies.update(this);
-    if (this.music.isPaused) {
-      this.music.resume();
+    this.Player.update();
+    this.BG.update();
+    this.Enemies.update(this);
+    if (this.BG.music.isPaused) {
+      this.BG.music.resume();
     }
-    this.scoreText.setText('SCORE:  ' + this.myPlayer.score);
-    this.bulletsText.setText('Bullets:  ' + (this.myPlayer.maxBullets - this.myPlayer.bullets.length));
+    this.scoreText.setText('SCORE:  ' + this.Player.score);
+    if (this.Player.maxBullets) {
+      this.bulletsText.setText('Bullets:  ' + (this.Player.maxBullets - this.Player.bullets.length));
+    }
+    this.HPText.setText('HP:  ');
+    this.LifeBar.set(this.Player.HP / this.Player.maxHP * 100);
   }
 };
 export default Main;

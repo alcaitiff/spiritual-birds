@@ -1,37 +1,48 @@
 import config from './config.json';
 const Background = {
-  create(scene) {
-    scene.bg_1 = scene.add.tileSprite(0, 0, config.width, config.height, 'bg_1');
-    scene.bg_1.setOrigin(0, 0);
-    scene.bg_1.setScrollFactor(0);
+  bg_1: null,
+  bg_2: null,
+  bg_3: null,
+  bg_4: null,
+  ground: null,
+  music: null,
+  speed: 1,
+  create(scene, music) {
+    this.bg_1 = scene.add.tileSprite(0, 0, config.width, config.height, 'bg_1');
+    this.bg_1.setOrigin(0, 0);
+    this.bg_1.setScrollFactor(0);
 
-    scene.bg_2 = scene.add.tileSprite(0, 0, config.width, config.height, 'bg_2');
-    scene.bg_2.setOrigin(0, 0);
-    scene.bg_2.setScrollFactor(0);
+    this.bg_2 = scene.add.tileSprite(0, 0, config.width, config.height, 'bg_2');
+    this.bg_2.setOrigin(0, 0);
+    this.bg_2.setScrollFactor(0);
 
-    scene.bg_3 = scene.add.tileSprite(0, 0, config.width, config.height, 'bg_3');
-    scene.bg_3.setOrigin(0, 0);
-    scene.bg_3.setScrollFactor(0);
+    this.bg_3 = scene.add.tileSprite(0, 0, config.width, config.height, 'bg_3');
+    this.bg_3.setOrigin(0, 0);
+    this.bg_3.setScrollFactor(0);
 
-    scene.bg_4 = scene.add.tileSprite(0, 0, config.width, config.height, 'bg_4');
-    scene.bg_4.setOrigin(0, 0);
-    scene.bg_4.setScrollFactor(0);
+    this.bg_4 = scene.add.tileSprite(0, 0, config.width, config.height, 'bg_4');
+    this.bg_4.setOrigin(0, 0);
+    this.bg_4.setScrollFactor(0);
 
-    scene.ground = scene.add.tileSprite(0, 0, config.width, config.height, 'ground');
-    scene.ground.setOrigin(0, 0);
-    scene.ground.setScrollFactor(0);
-    scene.ground.setDepth(1);
+    this.ground = scene.add.tileSprite(0, 0, config.width, config.height, 'ground');
+    this.ground.setOrigin(0, 0);
+    this.ground.setScrollFactor(0);
+    this.ground.setDepth(1);
 
-    scene.music = scene.sound.add('bg_sound', { loop: true });
-    scene.music.volume = 0.3;
-    scene.music.play();
+    this.music = scene.sound.add('bg_sound', { loop: true });
+    this.music.volume = 0.3;
+    if (music) {
+      this.music.play();
+    }
+    return this;
   },
-  update(scene) {
-    scene.bg_1.tilePositionX += 0.2;
-    scene.bg_2.tilePositionX += 0.4;
-    scene.bg_3.tilePositionX += 0.6;
-    scene.bg_4.tilePositionX += 0.8;
-    scene.ground.tilePositionX += 1;
+  update(speed) {
+    const s = speed || this.speed;
+    this.bg_1.tilePositionX += 0.2 * s;
+    this.bg_2.tilePositionX += 0.4 * s;
+    this.bg_3.tilePositionX += 0.6 * s;
+    this.bg_4.tilePositionX += 0.8 * s;
+    this.ground.tilePositionX += 1 * s;
   }
 };
 export default Background;

@@ -2,7 +2,8 @@ import Phaser from 'phaser';
 import Preload from './scenes/Preload';
 import Main from './scenes/Main';
 import Pause from './scenes/Pause';
-import Death from './scenes/Death';
+import GameOver from './scenes/GameOver';
+import Start from './scenes/Start';
 import config from './config.json';
 const game = {
   type: Phaser.AUTO,
@@ -20,6 +21,6 @@ const game = {
       debug: config.debug
     }
   },
-  scene: [Preload, Main, Pause, Death]
+  scene: [Preload, Start, Main, Pause, GameOver]
 };
 export default game;
