@@ -1,19 +1,22 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <ion-phaser v-bind:game.prop="game" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import game from './static/js/phaser/game';
 export default {
   name: 'App',
   components: {
-    HelloWorld
+
+  },
+  data() {
+    return {
+      game: game
+    };
   }
-}
+};
 </script>
 
 <style>
@@ -23,6 +26,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 0px;
 }
 </style>
