@@ -4,7 +4,9 @@ A game made with Phaser 3 and Vuejs.
 
 ## How to play
 
-Arrows to flap around and "q" to shoot.
+Arrows to flap around
+"q" to shoot
+"p" to pause
 
 ## Project setup
 
