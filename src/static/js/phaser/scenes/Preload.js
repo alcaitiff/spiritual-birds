@@ -7,8 +7,14 @@ const Preload = {
     this.load.image('bg_3', 'assets/middle_3.png');
     this.load.image('bg_4', 'assets/foreground_4.png');
     this.load.image('ground', 'assets/ground_5.png');
+    this.load.image('logo', 'assets/logo.png');
 
     this.load.audio('bg_sound', 'assets/music/MagicScout-Farm.mp3');
+    this.load.audio('fireball_sound', 'assets/sounds/fireball.ogg');
+    this.load.audio('player_death_sound', 'assets/sounds/playerdeath.ogg');
+    this.load.audio('cry_sound', 'assets/sounds/cry.ogg');
+    this.load.audio('fire_hit_sound', 'assets/sounds/firehit.ogg');
+    this.load.audio('player_hit_sound', 'assets/sounds/playerhit.ogg');
 
     this.load.spritesheet('player', 'assets/sparrow-sprite-small.png', {
       frameWidth: 100,
@@ -27,7 +33,7 @@ const Preload = {
   init() {
   },
   create() {
-    this.scene.start('Main');
+    this.scene.start('Start');
   },
   update() { }
 };
