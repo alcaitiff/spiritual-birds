@@ -22,6 +22,11 @@ const GameController = {
       },
       update(scene) {
         this.Player.update();
+        if (this.Enemies.Types.GrayBird.fleed < 20) {
+          this.Enemies.Types.GrayBird.min = 2;
+        } else {
+          this.Enemies.Types.GrayBird.min = Math.round(this.Enemies.Types.GrayBird.fleed / 10);
+        }
         this.Enemies.update(scene);
         this.scoreText.setText('SCORE:  ' + this.Player.score);
         if (this.Player.maxBullets) {

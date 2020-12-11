@@ -43,6 +43,11 @@ const Enemies = {
       updateType(type) {
         type.alive.forEach((element, index) => {
           if (element === null || !element.update()) {
+            if (element.hp > 0) {
+              type.fleed++;
+            } else {
+              type.killed++;
+            }
             type.alive.splice(index, 1);
           };
         });
