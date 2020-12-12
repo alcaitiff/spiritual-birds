@@ -94,6 +94,11 @@ const Player = {
         }, this);
         return this;
       },
+      powerup() {
+        // Adicionar 1 no contador
+        // se for o primeiro maxfireball e mostrar menu de power up
+        console.log('powerup');
+      },
       hit(game, dmg) {
         this.HP -= dmg;
         this.sounds.cry.play();

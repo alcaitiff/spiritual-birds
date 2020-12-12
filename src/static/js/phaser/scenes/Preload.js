@@ -31,6 +31,11 @@ const Preload = {
       frameWidth: 40,
       frameHeight: 25
     });
+
+    this.load.spritesheet('powerup', 'assets/sprites/fire.png', {
+      frameWidth: 156,
+      frameHeight: 157
+    });
   },
   init() {
   },

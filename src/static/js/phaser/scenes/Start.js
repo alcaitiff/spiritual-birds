@@ -7,7 +7,7 @@ const Start = {
   },
   create() {
     this.music = this.sound.add('start_sound', { loop: true });
-    this.music.volume = 0.3;
+    this.music.volume = 0.1;
     this.music.play();
     this.BG = BG.create(this, false);
     this.logo = this.add.image(config.width / 2, 300, 'logo');

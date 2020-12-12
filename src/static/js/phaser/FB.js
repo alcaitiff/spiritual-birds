@@ -17,7 +17,7 @@ const FB = {
       this.sounds.hit.volume = 0.05;
     }
     if (!this.anims.fb) {
-      scene.anims.create({
+      this.anims.fb = scene.anims.create({
         key: 'fb',
         frames: scene.anims.generateFrameNumbers('fb'),
         frameRate: 25,

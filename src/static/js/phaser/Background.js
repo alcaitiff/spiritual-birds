@@ -1,5 +1,6 @@
 import config from './config.json';
 const Background = {
+// FIXME: construct pattern
   bg_1: null,
   bg_2: null,
   bg_3: null,
