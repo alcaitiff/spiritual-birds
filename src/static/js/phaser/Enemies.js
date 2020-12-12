@@ -4,7 +4,7 @@ const Enemies = {
     const newObj = {
       Types: {
         GrayBird: {
-          min: 3,
+          min: 1,
           alive: [],
           killed: 0,
           fleed: 0,
@@ -22,6 +22,7 @@ const Enemies = {
           (player, enemy) => {
             player.control.hit(scene, enemy.control.dmg);
             enemy.control.bounce();
+            // adicionar uma chamada para que o gamecontroller possa receber info e criar heals e powerups
           }
         );
         scene.physics.add.collider(

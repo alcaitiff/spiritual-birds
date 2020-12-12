@@ -6,8 +6,16 @@ const Player = {
     planing: 1,
     falling: 2
   },
-  HP: 3,
-  maxHP: 3,
+  HP: 2,
+  maxHP: 4,
+  powerups: {
+    stored: 0,
+    velocity: 0,
+    bullets: 0,
+    dmg: 0,
+    spread: 0,
+    options: 0
+  },
   bullets: [],
   bulletGroup: null,
   maxBullets: 0,
@@ -62,6 +70,7 @@ const Player = {
     const newObj = {
       flyingStates: this.flyingStates,
       HP: this.HP,
+      powerups: this.powerups,
       maxHP: this.maxHP,
       bullets: this.bullets,
       bulletGroup: this.bulletGroup,
@@ -95,9 +104,16 @@ const Player = {
         return this;
       },
       powerup() {
-        // Adicionar 1 no contador
-        // se for o primeiro maxfireball e mostrar menu de power up
-        console.log('powerup');
+        if (this.maxBullets === 0) {
+          this.maxBullets = 1;
+        } else {
+          this.powerups.stored += 1;
+        }
+      },
+      heal() {
+        if (this.HP < this.maxHP) {
+          this.HP++;
+        }
       },
       hit(game, dmg) {
         this.HP -= dmg;

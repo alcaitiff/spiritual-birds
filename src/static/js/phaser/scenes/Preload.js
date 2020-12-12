@@ -17,11 +17,17 @@ const Preload = {
     this.load.audio('cry_sound', 'assets/sounds/cry.ogg');
     this.load.audio('fire_hit_sound', 'assets/sounds/firehit.ogg');
     this.load.audio('player_hit_sound', 'assets/sounds/playerhit.ogg');
+    this.load.audio('powerup_hit_sound', 'assets/sounds/poweruphit.ogg');
+    this.load.audio('powerup_appear_sound', 'assets/sounds/powerupappear.ogg');
+
+    this.load.audio('heal_hit_sound', 'assets/sounds/healhit.ogg');
+    this.load.audio('heal_appear_sound', 'assets/sounds/healappear.ogg');
 
     this.load.spritesheet('player', 'assets/sprites/sparrow.png', {
       frameWidth: 100,
       frameHeight: 71
     });
+
     this.load.spritesheet('graybird', 'assets/sprites/graybird.png', {
       frameWidth: 64,
       frameHeight: 48
@@ -33,6 +39,11 @@ const Preload = {
     });
 
     this.load.spritesheet('powerup', 'assets/sprites/fire.png', {
+      frameWidth: 156,
+      frameHeight: 157
+    });
+
+    this.load.spritesheet('heal', 'assets/sprites/water.png', {
       frameWidth: 156,
       frameHeight: 157
     });

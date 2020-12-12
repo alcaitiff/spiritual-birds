@@ -10,14 +10,14 @@ const PowerUp = {
   },
   group: null,
   initialize(scene, player) {
-    // if (!this.sounds.appear) {
-    //   this.sounds.appear = scene.sound.add('power_up_appear_sound', { loop: false });
-    //   this.sounds.appear.volume = 0.7;
-    // }
-    // if (!this.sounds.hit) {
-    //   this.sounds.hit = scene.sound.add('power_up_hit_sound', { loop: false });
-    //   this.sounds.hit.volume = 0.7;
-    // }
+    if (!this.sounds.appear) {
+      this.sounds.appear = scene.sound.add('powerup_appear_sound', { loop: false });
+      this.sounds.appear.volume = 0.7;
+    }
+    if (!this.sounds.hit) {
+      this.sounds.hit = scene.sound.add('powerup_hit_sound', { loop: false });
+      this.sounds.hit.volume = 0.7;
+    }
     if (!this.anims.appear) {
       this.anims.appear = scene.anims.create({
         key: 'powerup-appear',
@@ -52,7 +52,7 @@ const PowerUp = {
       }
     );
   },
-  create(scene, player, x, y) {
+  create(scene, player, x, y, vel) {
     this.initialize(scene, player);
     const newObj = {
       sounds: this.sounds,
@@ -60,17 +60,18 @@ const PowerUp = {
       arcadeSprite: null,
       group: this.group,
       dmg: 1,
-      construct(x, y) {
+      vel: vel,
+      construct(x, y, vel) {
+        this.sounds.appear.play();
         this.arcadeSprite = this.group.create(x, y, 'powerup');
-        this.arcadeSprite.setVelocityX(0);
-        this.arcadeSprite.setVelocityY(0);
+        this.arcadeSprite.setVelocityX(vel.x);
+        this.arcadeSprite.setVelocityY(vel.y);
         this.arcadeSprite.setScale(0.4, 0.4);
         this.arcadeSprite.body.height *= 0.4;
         this.arcadeSprite.body.width *= 0.4;
         this.arcadeSprite.play('powerup-appear');
         this.arcadeSprite.setActive(true);
         this.arcadeSprite.control = this;
-        // this.sounds.appear.play();
         this.arcadeSprite.on('animationcomplete', function(anim, frame) {
           this.emit('animationcomplete-' + anim.key, anim, frame);
         }, this.arcadeSprite);
@@ -80,16 +81,17 @@ const PowerUp = {
         return this;
       },
       update() {
-        if (!this.arcadeSprite || !this.arcadeSprite.body || this.arcadeSprite.body.x > config.width + 30) {
+        if (!this.arcadeSprite || !this.arcadeSprite.body || this.arcadeSprite.body.x > config.width + 30 || this.arcadeSprite.body.x < 10) {
           this.arcadeSprite.destroy();
           return null;
         } else {
-          this.arcadeSprite.setVelocityY(0);
+          this.arcadeSprite.setVelocityX(this.vel.x);
+          this.arcadeSprite.setVelocityY(this.vel.y);
           return this;
         }
       },
       hit() {
-        // this.sounds.hit.play();
+        this.sounds.hit.play();
         this.arcadeSprite.play('powerup-hit');
         this.arcadeSprite.body.enable = false;
         this.arcadeSprite.on('animationcomplete-powerup-hit', function(anim, frame) {
@@ -97,7 +99,7 @@ const PowerUp = {
         }, this.arcadeSprite);
       }
     };
-    return newObj.construct(x, y);
+    return newObj.construct(x, y, vel);
   }
 };
 export default PowerUp;
