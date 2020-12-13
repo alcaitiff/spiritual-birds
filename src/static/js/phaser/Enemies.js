@@ -1,6 +1,6 @@
 import GrayBird from './GrayBird';
 const Enemies = {
-  create(scene, player) {
+  create(scene, player, gameController) {
     const newObj = {
       Types: {
         GrayBird: {
@@ -13,8 +13,9 @@ const Enemies = {
       },
       enemyGroup: null,
       player: null,
-      construct(scene, player) {
+      construct(scene, player, gameController) {
         this.player = player;
+        this.gameController = gameController;
         this.enemyGroup = scene.physics.add.group();
         scene.physics.add.collider(
           player.arcadeSprite,
@@ -22,7 +23,6 @@ const Enemies = {
           (player, enemy) => {
             player.control.hit(scene, enemy.control.dmg);
             enemy.control.bounce();
-            // adicionar uma chamada para que o gamecontroller possa receber info e criar heals e powerups
           }
         );
         scene.physics.add.collider(
@@ -30,8 +30,11 @@ const Enemies = {
           this.enemyGroup,
           (bullet, enemy) => {
             bullet.control.hit();
-            const points = enemy.control.hit(bullet.control.dmg, player);
-            player.addScore(points);
+            const hit = enemy.control.hit(bullet.control.dmg, player);
+            if (hit.drop) {
+              this.gameController.drop(hit.drop, enemy.body.x, enemy.body.y);
+            }
+            player.addScore(hit.points);
           }
         );
         return this;
@@ -58,7 +61,7 @@ const Enemies = {
         this.updateType(this.Types.GrayBird);
       }
     };
-    return newObj.construct(scene, player);
+    return newObj.construct(scene, player, gameController);
   }
 };
 export default Enemies;

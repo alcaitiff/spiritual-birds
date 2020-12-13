@@ -1,4 +1,5 @@
 import config from './config.json';
+import GameController from './GameController';
 const GrayBird = {
   hp: 2,
   dmg: 1,
@@ -41,6 +42,7 @@ const GrayBird = {
       hp: this.hp,
       dmg: this.dmg,
       points: this.points,
+      dead: false,
       construct(group) {
         this.arcadeSprite = group.create(config.width + 20, Math.random() * config.height, 'graybird');
         this.arcadeSprite.setVelocityX(-300 - Math.random() * 250);
@@ -71,12 +73,17 @@ const GrayBird = {
       hit(dmg) {
         this.hp -= dmg;
         if (this.hp <= 0) {
-          this.death();
-          return this.points;
+          if (!this.dead) {
+            this.dead = true;
+            this.death();
+            return { points: this.points, drop: GameController.dropTypes.Heal };
+          } else {
+            return { points: 0, drop: null };
+          }
         } else {
           this.arcadeSprite.setVelocityX(-300 - Math.random() * 150);
           this.arcadeSprite.setVelocityY(-150 - Math.random() * 50);
-          return 1;
+          return { points: 1, drop: null };
         }
       },
       death() {

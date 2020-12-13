@@ -6,8 +6,8 @@ const Player = {
     planing: 1,
     falling: 2
   },
-  HP: 2,
-  maxHP: 4,
+  HP: 3,
+  maxHP: 3,
   powerups: {
     stored: 0,
     velocity: 0,

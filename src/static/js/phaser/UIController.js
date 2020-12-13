@@ -6,8 +6,7 @@ const UIController = {
     powerupAppear: null,
     powerupDisappear: null
   },
-  bullets: [],
-  initialize(scene, player) {
+  initialize(scene) {
     if (!this.anims.powerupAppear) {
       this.anims.powerupAppear = scene.anims.create({
         key: 'powerup-ico-appear',
@@ -26,7 +25,7 @@ const UIController = {
     }
   },
   create(scene, player) {
-    this.initialize(scene, player);
+    this.initialize(scene);
     const newObj = {
       anims: this.anims,
       Player: player,
@@ -36,7 +35,7 @@ const UIController = {
       HPText: null,
       LifeBar: null,
       LastBulletsValue: 0,
-      bullets: this.bullets,
+      bullets: [],
       construct(scene, player) {
         this.Player = player;
         this.scoreText = scene.add.text(config.width / 2 - 20, 10, 'SCORE:  ' + this.Player.score);
@@ -49,7 +48,6 @@ const UIController = {
       addBullets(scene, n) {
         while (n > 0) {
           const bullet = scene.add.sprite(config.width - 160 + this.bullets.length * 17, 17, 'powerup');
-          // const bullet = scene.add.sprite(config.width - 180, 'powerup');
           bullet.setScale(0.17, 0.17);
           bullet.play('powerup-ico-appear');
           this.bullets.push(bullet);
