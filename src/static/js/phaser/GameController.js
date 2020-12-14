@@ -68,11 +68,11 @@ const GameController = {
         this.updatePowerUps();
         this.updateHeals();
 
-        if (this.Enemies.Types.GrayBird.fleed === 1 && this.PowerUps.length === 0 && this.Player.maxBullets === 0) {
+        if (this.Enemies.Types.GrayBird.fleed === 1 && this.PowerUps.length === 0 && this.Player.getMaxBullets() === 0) {
           this.Enemies.Types.GrayBird.min = 0;
           this.PowerUps.push(PowerUp.create(scene, this.Player, config.width / 2, config.height / 2, { x: 0, y: 0 }));
         }
-        if (this.Enemies.Types.GrayBird.fleed === 1 && this.Player.maxBullets > 0) {
+        if (this.Enemies.Types.GrayBird.fleed === 1 && this.Player.getMaxBullets() > 0) {
           this.Enemies.Types.GrayBird.min = 2;
         }
 

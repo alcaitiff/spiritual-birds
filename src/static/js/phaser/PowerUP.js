@@ -64,6 +64,9 @@ const PowerUp = {
       construct(x, y, vel) {
         this.sounds.appear.play();
         this.arcadeSprite = this.group.create(x, y, 'powerup');
+        if (vel.y === 0) {
+          this.arcadeSprite.body.setAllowGravity(false);
+        }
         this.arcadeSprite.setVelocityX(vel.x);
         this.arcadeSprite.setVelocityY(vel.y);
         this.arcadeSprite.setScale(0.4, 0.4);

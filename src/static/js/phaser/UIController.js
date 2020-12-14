@@ -1,5 +1,6 @@
 import config from './config.json';
 import LifeBar from './LifeBar';
+import PowerUPWheel from './PowerUPWheel';
 
 const UIController = {
   anims: {
@@ -43,6 +44,7 @@ const UIController = {
         this.HPText = scene.add.text(20, 10, '');
         this.PowerUPText = scene.add.text(20, 30, '');
         this.LifeBar = LifeBar.create(scene, 50, 10);
+        this.PowerUPWheel = PowerUPWheel.create(scene, player);
         return this;
       },
       addBullets(scene, n) {
@@ -65,9 +67,9 @@ const UIController = {
         }
       },
       updateBullets(scene) {
-        if (this.Player.maxBullets) {
+        if (this.Player.getMaxBullets()) {
           this.bulletsText.setText('Bullets: ');
-          const num = this.Player.maxBullets - this.Player.bullets.length;
+          const num = this.Player.getMaxBullets() - this.Player.bullets.length;
           if (num !== this.LastBulletsValue) {
             if (num > this.LastBulletsValue) {
               this.addBullets(scene, num - this.LastBulletsValue);
@@ -81,8 +83,8 @@ const UIController = {
       update(scene) {
         this.scoreText.setText('SCORE:  ' + this.Player.score);
         this.HPText.setText('HP:');
-        this.LifeBar.set(this.Player.HP / this.Player.maxHP * 100);
-        this.PowerUPText.setText('PWR: ' + this.Player.powerups.stored);
+        this.LifeBar.set(this.Player.HP / this.Player.getMaxHP() * 100);
+        this.PowerUPWheel.update();
         this.updateBullets(scene);
       }
     };

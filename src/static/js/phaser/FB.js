@@ -25,35 +25,59 @@ const FB = {
       });
     }
   },
-  create(scene, player) {
+  create(scene, player, small) {
     this.initialize(scene);
     const newObj = {
       sounds: this.sounds,
       anims: this.anims,
-      arcadeSprite: null,
+      arcadeSprites: [],
       dmg: 1,
+      small: small,
       construct(player) {
-        this.arcadeSprite = player.bulletGroup.create(player.arcadeSprite.x + 20, player.arcadeSprite.y - 20, 'fb');
-        this.arcadeSprite.setVelocityX(600);
-        this.arcadeSprite.setVelocityY(0);
-        this.arcadeSprite.play('fb');
-        this.arcadeSprite.setActive(true);
-        this.arcadeSprite.control = this;
+        this.createBullets(player.powerups.spread.value);
+        this.dmg = player.getDMG();
         this.sounds.shoot.play();
         return this;
       },
-      update() {
-        if (!this.arcadeSprite || !this.arcadeSprite.body || this.arcadeSprite.body.x > config.width + 30) {
-          this.arcadeSprite.destroy();
-          return null;
-        } else {
-          this.arcadeSprite.setVelocityY(0);
-          return this;
-        }
+      createBullets(spread) {
+        if (spread > 9) { this.bullet(150, 20); }
+        if (spread > 8) { this.bullet(-150, -20); }
+        if (spread > 7) { this.bullet(-100, -20); }
+        if (spread > 6) { this.bullet(100, 20); }
+        if (spread > 5) { this.bullet(-75, -20); }
+        if (spread > 4) { this.bullet(75, 20); }
+        if (spread > 3) { this.bullet(-50, -20); }
+        if (spread > 2) { this.bullet(50, 20); }
+        if (spread > 1) { this.bullet(0, -20); }
+        if (spread > 0) { this.bullet(0, 20); }
+        this.bullet(0, 0);
       },
-      hit() {
+      bullet(vy, py) {
+        const arcadeSprite = player.bulletGroup.create(player.arcadeSprite.x + 20, player.arcadeSprite.y - 20 + py, 'fb');
+        if (this.small) {
+          arcadeSprite.setScale(0.3, 0.3);
+        }
+        arcadeSprite.setVelocityX(600);
+        arcadeSprite.setVelocityY(vy);
+        arcadeSprite.body.setAllowGravity(false);
+        arcadeSprite.play('fb');
+        arcadeSprite.setActive(true);
+        arcadeSprite.control = this;
+        this.arcadeSprites.push(arcadeSprite);
+      },
+      update() {
+        this.arcadeSprites.forEach((element, index, array) => {
+          if (!element || !element.body || element.body.x > config.width + 30) {
+            array.splice(index, 1);
+            element.destroy();
+            return null;
+          }
+        });
+        return this.arcadeSprites.length ? this : null;
+      },
+      hit(arcadeSprite) {
         this.sounds.hit.play();
-        this.arcadeSprite.destroy();
+        arcadeSprite.destroy();
       }
     };
     return newObj.construct(player);

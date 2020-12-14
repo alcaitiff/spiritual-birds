@@ -37,7 +37,7 @@ const Background = {
         this.ground = scene.add.tileSprite(0, 0, config.width, config.height, 'ground');
         this.ground.setOrigin(0, 0);
         this.ground.setScrollFactor(0);
-        this.ground.setDepth(1);
+        this.ground.setDepth(2);
 
         if (music) {
           this.music.play();

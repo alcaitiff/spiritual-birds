@@ -8,6 +8,18 @@ const Preload = {
     this.load.image('bg_4', 'assets/parallax/lvl1/foreground.png');
     this.load.image('ground', 'assets/parallax/lvl1/ground.png');
     this.load.image('logo', 'assets/logo.png');
+    this.load.image('ammo', 'assets/ammo.png');
+    this.load.image('dmg', 'assets/dmg.png');
+    this.load.image('health', 'assets/health.png');
+    this.load.image('spread', 'assets/spread.png');
+    this.load.image('speed', 'assets/speed.png');
+    this.load.image('option', 'assets/option.png');
+    this.load.image('ammo_d', 'assets/ammo_d.png');
+    this.load.image('dmg_d', 'assets/dmg_d.png');
+    this.load.image('health_d', 'assets/health_d.png');
+    this.load.image('spread_d', 'assets/spread_d.png');
+    this.load.image('speed_d', 'assets/speed_d.png');
+    this.load.image('option_d', 'assets/option_d.png');
     // music
     this.load.audio('bg_sound', 'assets/music/MagicScoutFarm.mp3');
     this.load.audio('start_sound', 'assets/music/MagicScoutManor.mp3');
@@ -31,6 +43,21 @@ const Preload = {
     this.load.spritesheet('graybird', 'assets/sprites/graybird.png', {
       frameWidth: 64,
       frameHeight: 48
+    });
+
+    this.load.spritesheet('vulture', 'assets/sprites/vulture.png', {
+      frameWidth: 100,
+      frameHeight: 100
+    });
+
+    this.load.spritesheet('eagle', 'assets/sprites/eagle.png', {
+      frameWidth: 100,
+      frameHeight: 100
+    });
+
+    this.load.spritesheet('pidgeon', 'assets/sprites/pidgeon.png', {
+      frameWidth: 80,
+      frameHeight: 80
     });
 
     this.load.spritesheet('fb', 'assets/sprites/fireball.png', {

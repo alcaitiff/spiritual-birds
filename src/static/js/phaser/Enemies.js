@@ -1,4 +1,7 @@
-import GrayBird from './GrayBird';
+import GrayBird from './enemies/GrayBird';
+import Vulture from './enemies/Vulture';
+import Eagle from './enemies/Eagle';
+import Pidgeon from './enemies/Pidgeon';
 const Enemies = {
   create(scene, player, gameController) {
     const newObj = {
@@ -9,6 +12,27 @@ const Enemies = {
           killed: 0,
           fleed: 0,
           create: GrayBird.create.bind(GrayBird)
+        },
+        Vulture: {
+          min: 1,
+          alive: [],
+          killed: 0,
+          fleed: 0,
+          create: Vulture.create.bind(Vulture)
+        },
+        Eagle: {
+          min: 1,
+          alive: [],
+          killed: 0,
+          fleed: 0,
+          create: Eagle.create.bind(Eagle)
+        },
+        Pidgeon: {
+          min: 1,
+          alive: [],
+          killed: 0,
+          fleed: 0,
+          create: Pidgeon.create.bind(Pidgeon)
         }
       },
       enemyGroup: null,
@@ -29,8 +53,8 @@ const Enemies = {
           player.bulletGroup,
           this.enemyGroup,
           (bullet, enemy) => {
-            bullet.control.hit();
-            const hit = enemy.control.hit(bullet.control.dmg, player);
+            bullet.control.hit(bullet);
+            const hit = enemy.control.hit(bullet.control.dmg);
             if (hit.drop) {
               this.gameController.drop(hit.drop, enemy.body.x, enemy.body.y);
             }
@@ -57,8 +81,10 @@ const Enemies = {
         });
       },
       update(scene) {
-        this.generate(this.Types.GrayBird);
-        this.updateType(this.Types.GrayBird);
+        Object.values(this.Types).forEach(e => {
+          this.generate(e);
+          this.updateType(e);
+        });
       }
     };
     return newObj.construct(scene, player, gameController);

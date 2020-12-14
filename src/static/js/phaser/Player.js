@@ -1,5 +1,6 @@
 import config from './config.json';
 import FB from './FB';
+import Option from './Option';
 const Player = {
   flyingStates: {
     flying: 0,
@@ -8,15 +9,6 @@ const Player = {
   },
   HP: 3,
   maxHP: 3,
-  powerups: {
-    stored: 0,
-    velocity: 0,
-    bullets: 0,
-    dmg: 0,
-    spread: 0,
-    options: 0
-  },
-  bullets: [],
   bulletGroup: null,
   maxBullets: 0,
   flyingState: 1,
@@ -70,9 +62,10 @@ const Player = {
     const newObj = {
       flyingStates: this.flyingStates,
       HP: this.HP,
-      powerups: this.powerups,
       maxHP: this.maxHP,
-      bullets: this.bullets,
+      dmg: 1,
+      bullets: [],
+      options: [],
       bulletGroup: this.bulletGroup,
       maxBullets: this.maxBullets,
       flyingState: this.flyingState,
@@ -81,6 +74,15 @@ const Player = {
       anims: this.anims,
       cursors: null,
       arcadeSprite: null,
+      powerups: {
+        stored: { value: 0, max: 6 },
+        velocity: { value: 0, max: 10 },
+        bullets: { value: 0, max: 10 },
+        spread: { value: 0, max: 10 },
+        HP: { value: 0, max: 20 },
+        dmg: { value: 0, max: 20 },
+        options: { value: 0, max: 3 }
+      },
       construct(scene, cursors) {
         this.cursors = cursors;
         this.arcadeSprite = scene.physics.add.sprite(20, config.height / 2, 'player');
@@ -97,21 +99,73 @@ const Player = {
         this.bulletGroup = scene.physics.add.group();
         this.fall();
         scene.input.keyboard.on('keydown-' + 'Q', () => {
-          if (this.bullets.length < this.maxBullets) {
-            this.bullets.push(FB.create(scene, this));
+          if (this.bullets.length < this.getMaxBullets()) {
+            this.shoot();
           }
+        }, this);
+        scene.input.keyboard.on('keydown-' + 'W', () => {
+          this.usePowerup();
+        }, this);
+
+        scene.input.keyboard.on('keydown-' + 'E', () => {
+          this.powerup();
         }, this);
         return this;
       },
+      shoot() {
+        this.bullets.push(FB.create(scene, this, false));
+      },
       powerup() {
-        if (this.maxBullets === 0) {
-          this.maxBullets = 1;
+        if (this.getMaxBullets() === 0) {
+          this.powerups.bullets.value += 1;
+        } else if (this.powerups.stored.value < this.powerups.stored.max) {
+          this.powerups.stored.value++;
         } else {
-          this.powerups.stored += 1;
+          this.powerups.stored.value = 1;
         }
       },
+      incrementPowerUp(p) {
+        if (p.value < p.max) {
+          p.value++;
+          this.powerups.stored.value = 0;
+          return true;
+        } else {
+          return false;
+        }
+      },
+      createOption() {
+        this.options.push(Option.create(scene, this));
+      },
+      usePowerup() {
+        switch (this.powerups.stored.value) {
+          case 1: this.incrementPowerUp(this.powerups.velocity);
+            break;
+          case 2: this.incrementPowerUp(this.powerups.bullets);
+            break;
+          case 3: this.incrementPowerUp(this.powerups.HP);
+            break;
+          case 4:this.incrementPowerUp(this.powerups.spread);
+            break;
+          case 5: this.incrementPowerUp(this.powerups.dmg);
+            break;
+          case 6: if (this.incrementPowerUp(this.powerups.options)) {
+            this.createOption();
+          };
+
+            break;
+        }
+      },
+      getMaxHP() {
+        return this.maxHP + this.powerups.HP.value;
+      },
+      getMaxBullets() {
+        return this.maxBullets + this.powerups.bullets.value;
+      },
+      getDMG() {
+        return this.dmg + this.powerups.dmg.value;
+      },
       heal() {
-        if (this.HP < this.maxHP) {
+        if (this.HP < this.getMaxHP()) {
           this.HP++;
         }
       },
@@ -138,20 +192,20 @@ const Player = {
           } else if (this.arcadeSprite.body.velocity.x < 3) {
             this.arcadeSprite.setVelocityX(this.arcadeSprite.body.velocity.x + 3);
           } else {
-            this.arcadeSprite.setVelocityX(this.arcadeSprite.body.velocity.x + 0);
+            this.arcadeSprite.setVelocityX(0);
           }
 
           if (this.cursors.left.isDown) {
-            this.arcadeSprite.setVelocityX(this.arcadeSprite.body.velocity.x - 5);
+            this.arcadeSprite.setVelocityX(this.arcadeSprite.body.velocity.x - 5 - this.powerups.velocity.value);
           } else if (this.cursors.right.isDown) {
-            this.arcadeSprite.setVelocityX(this.arcadeSprite.body.velocity.x + 5);
+            this.arcadeSprite.setVelocityX(this.arcadeSprite.body.velocity.x + 5 + this.powerups.velocity.value);
           }
           if (this.cursors.down.isDown) {
             this.fall();
-            this.arcadeSprite.setVelocityY(this.arcadeSprite.body.velocity.y + 5);
+            this.arcadeSprite.setVelocityY(this.arcadeSprite.body.velocity.y + 5 + this.powerups.velocity.value);
           } else if (this.cursors.up.isDown) {
             this.fly();
-            this.arcadeSprite.setVelocityY(this.arcadeSprite.body.velocity.y - 10);
+            this.arcadeSprite.setVelocityY(this.arcadeSprite.body.velocity.y - 10 - this.powerups.velocity.value);
           } else {
             this.plane();
           }
@@ -159,6 +213,11 @@ const Player = {
         this.bullets.forEach((element, index) => {
           if (element === null || !element.update()) {
             this.bullets.splice(index, 1);
+          };
+        });
+        this.options.forEach((element, index) => {
+          if (element === null || !element.update()) {
+            this.options.splice(index, 1);
           };
         });
       },
