@@ -1,7 +1,7 @@
 import config from '../config.json';
 import GameController from '../controller/GameController';
 import DropController from '../controller/DropController';
-const Pidgeon = {
+const Bluebird = {
   sounds: {
     death: null
   },
@@ -16,16 +16,16 @@ const Pidgeon = {
     }
     if (!this.anims.fly) {
       this.anims.fly = scene.anims.create({
-        key: 'flyP',
-        frames: scene.anims.generateFrameNumbers('pidgeon'),
-        frameRate: 22,
+        key: 'flyB',
+        frames: scene.anims.generateFrameNumbers('bluebird', { start: 0, end: 7 }),
+        frameRate: 18,
         repeat: -1
       });
     }
     if (!this.anims.fall) {
       this.anims.fall = scene.anims.create({
-        key: 'fallP',
-        frames: scene.anims.generateFrameNumbers('pidgeon', { start: 2, end: 5 }),
+        key: 'fallB',
+        frames: scene.anims.generateFrameNumbers('bluebird', { start: 2, end: 5 }),
         frameRate: 17,
         repeat: 2
       });
@@ -37,31 +37,31 @@ const Pidgeon = {
       sounds: this.sounds,
       anims: this.anims,
       arcadeSprite: null,
-      hp: 1,
-      dmg: 1,
-      points: 1,
+      hp: 3,
+      dmg: 3,
+      points: 3,
       dropTable: [
         {
           type: GameController.dropTypes.Heal,
-          chance: 5
+          chance: 50
         },
         {
           type: GameController.dropTypes.PowerUP,
-          chance: 20
+          chance: 50
         }
       ],
       dropController: DropController.create(),
       dead: false,
       construct(group) {
-        this.arcadeSprite = group.create(config.width + 20, Math.random() * (config.height - 100), 'pidgeon');
+        this.arcadeSprite = group.create(config.width + 20, Math.random() * (config.height - 200) + 200, 'bluebird');
         this.arcadeSprite.setVelocityX(-100 - Math.random() * 50);
-        this.arcadeSprite.setVelocityY(-Math.random() * 150);
-        this.arcadeSprite.setScale(0.8, 0.8);
+        this.arcadeSprite.setVelocityY(-Math.random() * 50);
+        this.arcadeSprite.body.setAllowGravity(false);
         this.arcadeSprite.body.height *= 0.5;
         this.arcadeSprite.body.width *= 0.4;
         this.arcadeSprite.body.offset.x = 15;
         this.arcadeSprite.body.offset.y = 15;
-        this.arcadeSprite.play('flyP');
+        this.arcadeSprite.play('flyB');
         this.arcadeSprite.flipX = true;
         this.arcadeSprite.setActive(true);
         this.arcadeSprite.control = this;
@@ -73,9 +73,9 @@ const Pidgeon = {
           setTimeout(
             () => {
               if (this.arcadeSprite && this.arcadeSprite.body && !this.dead) {
-                this.arcadeSprite.setVelocityX(-300 - Math.random() * 150);
+                this.arcadeSprite.setVelocityX(-Math.random() * 50);
               }
-            }, 500);
+            }, 1500);
         }
       },
       hit(dmg) {
@@ -88,7 +88,7 @@ const Pidgeon = {
             return { points: 0, drop: null };
           }
         } else {
-          this.arcadeSprite.setVelocityX(-300 - Math.random() * 150);
+          this.arcadeSprite.setVelocityX(-Math.random() * 50);
           return { points: 1, drop: null };
         }
       },
@@ -96,15 +96,15 @@ const Pidgeon = {
         this.dead = true;
         this.sounds.death.play();
         this.arcadeSprite.setVelocityX(50);
-        this.arcadeSprite.setVelocityY(350);
+        this.arcadeSprite.setVelocityY(450);
         this.arcadeSprite.setAngularVelocity(300);
-        this.arcadeSprite.play('fallP');
+        this.arcadeSprite.play('fallB');
         this.arcadeSprite.flipY = true;
       },
       update() {
         if (!this.dead) {
           this.arcadeSprite.setVelocityY(Math.round(Math.cos(this.arcadeSprite.body.x / 36) * 150));
-          this.arcadeSprite.setVelocityX(this.arcadeSprite.body.velocity.x - Math.round(Math.sin(this.arcadeSprite.body.x / 36) * 10));
+          this.arcadeSprite.setVelocityX(this.arcadeSprite.body.velocity.x - Math.round(Math.sin(this.arcadeSprite.body.x / 36) * 5));
         }
         if (
           !this.arcadeSprite || !this.arcadeSprite.body || this.arcadeSprite.body.x <= 0 ||
@@ -120,4 +120,4 @@ const Pidgeon = {
     return newObj.construct(group);
   }
 };
-export default Pidgeon;
+export default Bluebird;

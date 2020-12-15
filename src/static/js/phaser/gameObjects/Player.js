@@ -1,4 +1,4 @@
-import config from './config.json';
+import config from '../config.json';
 import FB from './FB';
 import Option from './Option';
 const Player = {

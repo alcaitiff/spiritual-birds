@@ -55,6 +55,11 @@ const Preload = {
       frameHeight: 100
     });
 
+    this.load.spritesheet('bluebird', 'assets/sprites/bluebird.png', {
+      frameWidth: 100,
+      frameHeight: 100
+    });
+
     this.load.spritesheet('pidgeon', 'assets/sprites/pidgeon.png', {
       frameWidth: 80,
       frameHeight: 80

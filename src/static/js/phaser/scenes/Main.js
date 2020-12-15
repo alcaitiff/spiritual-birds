@@ -1,5 +1,5 @@
-import BG from '../Background';
-import GameController from '../GameController';
+import BG from '../gameObjects/Background';
+import GameController from '../controller/GameController';
 const Main = {
   key: 'Main',
   preload() { },

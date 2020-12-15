@@ -1,8 +1,8 @@
-import Player from './Player';
-import Enemies from './Enemies';
-import config from './config.json';
-import PowerUp from './PowerUP';
-import Heal from './Heal';
+import Player from '../gameObjects/Player';
+import EnemyController from './EnemyController';
+import config from '../config.json';
+import PowerUp from '../gameObjects/PowerUP';
+import Heal from '../gameObjects/Heal';
 import UIController from './UIController';
 const GameController = {
   dropTypes: {
@@ -12,7 +12,7 @@ const GameController = {
   create(scene, cursors) {
     const newObj = {
       Player: null,
-      Enemies: null,
+      EnemyController: null,
       PowerUps: [],
       Heals: [],
       scoreText: null,
@@ -22,7 +22,7 @@ const GameController = {
       dropTypes: this.dropTypes,
       construct(scene, cursors) {
         this.Player = Player.create(scene, cursors);
-        this.Enemies = Enemies.create(scene, this.Player, this);
+        this.EnemyController = EnemyController.create(scene, this.Player, this);
         this.UIController = UIController.create(scene, this.Player);
         this.scene = scene;
         return this;
@@ -41,12 +41,12 @@ const GameController = {
         this.PowerUps.push(PowerUp.create(this.scene, this.Player, x, y, { x: -30, y: 0 }));
       },
       updateEnemies() {
-        // if (this.Enemies.Types.GrayBird.fleed < 20) {
-        //   this.Enemies.Types.GrayBird.min = 2;
+        // if (this.EnemyController.Types.GrayBird.fleed < 20) {
+        //   this.EnemyController.Types.GrayBird.min = 2;
         // } else {
-        //   this.Enemies.Types.GrayBird.min = Math.round(this.Enemies.Types.GrayBird.fleed / 10);
+        //   this.EnemyController.Types.GrayBird.min = Math.round(this.EnemyController.Types.GrayBird.fleed / 10);
         // }
-        this.Enemies.update(this.scene);
+        this.EnemyController.update(this.scene);
       },
       updatePowerUps() {
         this.PowerUps.forEach((element, index) => {
@@ -68,12 +68,12 @@ const GameController = {
         this.updatePowerUps();
         this.updateHeals();
 
-        if (this.Enemies.Types.GrayBird.fleed === 1 && this.PowerUps.length === 0 && this.Player.getMaxBullets() === 0) {
-          this.Enemies.Types.GrayBird.min = 0;
+        if (this.EnemyController.Types.Pidgeon.fleed === 1 && this.PowerUps.length === 0 && this.Player.getMaxBullets() === 0) {
+          this.EnemyController.Types.Pidgeon.min = 0;
           this.PowerUps.push(PowerUp.create(scene, this.Player, config.width / 2, config.height / 2, { x: 0, y: 0 }));
         }
-        if (this.Enemies.Types.GrayBird.fleed === 1 && this.Player.getMaxBullets() > 0) {
-          this.Enemies.Types.GrayBird.min = 2;
+        if (this.EnemyController.Types.Pidgeon.fleed === 1 && this.Player.getMaxBullets() > 0) {
+          this.EnemyController.Types.Pidgeon.min = 2;
         }
 
         this.UIController.update(scene);

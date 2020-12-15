@@ -1,4 +1,4 @@
-import config from './config.json';
+import config from '../config.json';
 const Heal = {
   sounds: {
     appear: null,

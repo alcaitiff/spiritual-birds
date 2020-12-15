@@ -1,9 +1,7 @@
 import config from '../config.json';
-import GameController from '../GameController';
+import GameController from '../controller/GameController';
+import DropController from '../controller/DropController';
 const GrayBird = {
-  hp: 2,
-  dmg: 1,
-  points: 2,
   sounds: {
     death: null
   },
@@ -39,9 +37,20 @@ const GrayBird = {
       sounds: this.sounds,
       anims: this.anims,
       arcadeSprite: null,
-      hp: this.hp,
-      dmg: this.dmg,
-      points: this.points,
+      hp: 2,
+      dmg: 2,
+      points: 5,
+      dropTable: [
+        {
+          type: GameController.dropTypes.Heal,
+          chance: 20
+        },
+        {
+          type: GameController.dropTypes.PowerUP,
+          chance: 30
+        }
+      ],
+      dropController: DropController.create(),
       dead: false,
       construct(group) {
         this.arcadeSprite = group.create(config.width + 20, Math.random() * config.height, 'graybird');
@@ -73,9 +82,8 @@ const GrayBird = {
         this.hp -= dmg;
         if (this.hp <= 0) {
           if (!this.dead) {
-            this.dead = true;
             this.death();
-            return { points: this.points, drop: GameController.dropTypes.PowerUP };
+            return { points: this.points, drop: this.dropController.calcDrop(this.dropTable) };
           } else {
             return { points: 0, drop: null };
           }
@@ -86,6 +94,7 @@ const GrayBird = {
         }
       },
       death() {
+        this.dead = true;
         this.sounds.death.play();
         this.arcadeSprite.setVelocityX(50);
         this.arcadeSprite.setVelocityY(200);
@@ -94,7 +103,10 @@ const GrayBird = {
         this.arcadeSprite.flipY = true;
       },
       update() {
-        if (!this.arcadeSprite || !this.arcadeSprite.body || this.arcadeSprite.body.x <= 0 || this.arcadeSprite.body.y > config.height) {
+        if (
+          !this.arcadeSprite || !this.arcadeSprite.body || this.arcadeSprite.body.x <= 0 ||
+           this.arcadeSprite.body.y > config.height - 10 || this.arcadeSprite.body.y < -200
+        ) {
           this.arcadeSprite.destroy();
           return null;
         } else {

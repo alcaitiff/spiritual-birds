@@ -1,6 +1,6 @@
-import config from './config.json';
-import LifeBar from './LifeBar';
-import PowerUPWheel from './PowerUPWheel';
+import config from '../config.json';
+import LifeBar from '../gameObjects/LifeBar';
+import PowerUPWheel from '../gameObjects/PowerUPWheel';
 
 const UIController = {
   anims: {

@@ -1,9 +1,7 @@
 import config from '../config.json';
-import GameController from '../GameController';
+import GameController from '../controller/GameController';
+import DropController from '../controller/DropController';
 const Eagle = {
-  hp: 5,
-  dmg: 5,
-  points: 10,
   sounds: {
     death: null
   },
@@ -48,14 +46,25 @@ const Eagle = {
       sounds: this.sounds,
       anims: this.anims,
       arcadeSprite: null,
-      hp: this.hp,
-      dmg: this.dmg,
-      points: this.points,
+      hp: 5,
+      dmg: 5,
+      dropTable: [
+        {
+          type: GameController.dropTypes.Heal,
+          chance: 20
+        },
+        {
+          type: GameController.dropTypes.PowerUP,
+          chance: 50
+        }
+      ],
+      dropController: DropController.create(),
+      points: 10,
       dead: false,
       construct(group) {
-        this.arcadeSprite = group.create(config.width + 20, Math.random() * (config.height - 400), 'eagle');
+        this.arcadeSprite = group.create(config.width + 20, Math.random() * (config.height - 500), 'eagle');
         this.arcadeSprite.setVelocityX(-100 - Math.random() * 150);
-        this.arcadeSprite.setVelocityY(-200 - Math.random() * 150);
+        this.arcadeSprite.setVelocityY(-100 - Math.random() * 150);
         this.arcadeSprite.body.height *= 0.5;
         this.arcadeSprite.body.width *= 0.4;
         this.arcadeSprite.body.offset.x = 15;
@@ -81,18 +90,19 @@ const Eagle = {
         this.hp -= dmg;
         if (this.hp <= 0) {
           if (!this.dead) {
-            this.dead = true;
             this.death();
-            return { points: this.points, drop: GameController.dropTypes.PowerUP };
+            return { points: this.points, drop: this.dropController.calcDrop(this.dropTable) };
           } else {
             return { points: 0, drop: null };
           }
         } else {
-          this.arcadeSprite.setVelocityX(-300 - Math.random() * 150);
+          this.arcadeSprite.angle -= 5;
+          this.arcadeSprite.setVelocityX(-100 - Math.random() * 150);
           return { points: 1, drop: null };
         }
       },
       death() {
+        this.dead = true;
         this.sounds.death.play();
         this.arcadeSprite.setVelocityX(50);
         this.arcadeSprite.setVelocityY(350);
@@ -101,16 +111,23 @@ const Eagle = {
         this.arcadeSprite.flipY = true;
       },
       update() {
-        if (this.arcadeSprite.body.velocity.y > 0) {
-          if (Math.round(this.arcadeSprite.angle) !== -40) {
-            this.arcadeSprite.angle = -40;
-            this.arcadeSprite.setVelocityY(350);
-            this.arcadeSprite.play('diveE');
+        if (!this.dead) {
+          if (this.arcadeSprite.body.velocity.y > 0) {
+            if (Math.round(this.arcadeSprite.angle) > -40) {
+              this.arcadeSprite.angle -= 5;
+            } else if (Math.round(this.arcadeSprite.angle) <= -40) {
+              this.arcadeSprite.setVelocityY(400);
+              this.arcadeSprite.setVelocityX(-400);
+              this.arcadeSprite.play('diveE');
+            }
+          } else {
+            this.arcadeSprite.angle = 40;
           }
-        } else {
-          this.arcadeSprite.angle = 40;
         }
-        if (!this.arcadeSprite || !this.arcadeSprite.body || this.arcadeSprite.body.x <= 0 || this.arcadeSprite.body.y > config.height) {
+        if (
+          !this.arcadeSprite || !this.arcadeSprite.body || this.arcadeSprite.body.x <= 0 ||
+           this.arcadeSprite.body.y > config.height - 10 || this.arcadeSprite.body.y < -200
+        ) {
           this.arcadeSprite.destroy();
           return null;
         } else {

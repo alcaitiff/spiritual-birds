@@ -1,5 +1,5 @@
 import config from '../config.json';
-import BG from '../Background';
+import BG from '../gameObjects/Background';
 const Start = {
   key: 'Start',
   preload() { },
