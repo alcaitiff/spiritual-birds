@@ -887,11 +887,6 @@
     cssnano-preset-default "^4.0.0"
     postcss "^7.0.0"
 
-"@ion-phaser/core@^1.2.3":
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/@ion-phaser/core/-/core-1.2.3.tgz#6e08296c16f2d5a9d7713fc3db41637270393da9"
-  integrity sha512-45TKHaW2OijqN3zGr7WUt2IPW6l0yu/MUYw8fX6qArBOmashxLFmhIQMz4A7KDMGkRX9uukLrBrnkfyc1tZp9Q==
-
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.npm.taobao.org/@mrmlnc/readdir-enhanced/download/@mrmlnc/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"

@@ -1,18 +1,16 @@
 <template>
-  <ion-phaser id="app" v-bind:game.prop="game" />
+  <Game />
 </template>
 
 <script>
-import game from './static/js/phaser/game';
+import Game from '@/components/Game';
 export default {
   name: 'App',
   components: {
-
+    Game
   },
   data() {
-    return {
-      game: game
-    };
+    return {};
   }
 };
 </script>

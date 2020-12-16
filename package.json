@@ -9,7 +9,6 @@
     "deploy": "yarn build && ./deploy.sh"
   },
   "dependencies": {
-    "@ion-phaser/core": "^1.2.3",
     "convnetjs": "^0.3.0",
     "core-js": "^3.6.5",
     "phaser": "^3.24.1",

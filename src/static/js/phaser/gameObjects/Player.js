@@ -1,3 +1,4 @@
+import Phaser from 'phaser';
 import config from '../config.json';
 import FB from './FB';
 import Option from './Option';
@@ -73,6 +74,7 @@ const Player = {
       sounds: this.sounds,
       anims: this.anims,
       cursors: null,
+      keys: {},
       arcadeSprite: null,
       powerups: {
         stored: { value: 0, max: 6 },
@@ -105,6 +107,11 @@ const Player = {
         scene.input.keyboard.on('keydown-' + 'W', () => {
           this.usePowerup();
         }, this);
+
+        this.keys.DOWN = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
+        this.keys.UP = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+        this.keys.LEFT = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+        this.keys.RIGHT = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
 
         // scene.input.keyboard.on('keydown-' + 'E', () => {
         //   this.powerup();
@@ -194,15 +201,15 @@ const Player = {
             this.arcadeSprite.setVelocityX(0);
           }
 
-          if (this.cursors.left.isDown) {
+          if (this.cursors.left.isDown || this.keys.LEFT.isDown) {
             this.arcadeSprite.setVelocityX(this.arcadeSprite.body.velocity.x - 5 - this.powerups.velocity.value);
-          } else if (this.cursors.right.isDown) {
+          } else if (this.cursors.right.isDown || this.keys.RIGHT.isDown) {
             this.arcadeSprite.setVelocityX(this.arcadeSprite.body.velocity.x + 5 + this.powerups.velocity.value);
           }
-          if (this.cursors.down.isDown) {
+          if (this.cursors.down.isDown || this.keys.DOWN.isDown) {
             this.fall();
             this.arcadeSprite.setVelocityY(this.arcadeSprite.body.velocity.y + 5 + this.powerups.velocity.value);
-          } else if (this.cursors.up.isDown) {
+          } else if (this.cursors.up.isDown || this.keys.UP.isDown) {
             this.fly();
             this.arcadeSprite.setVelocityY(this.arcadeSprite.body.velocity.y - 10 - this.powerups.velocity.value);
           } else {
