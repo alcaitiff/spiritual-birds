@@ -35,10 +35,10 @@ const GameController = {
         }
       },
       dropHeal(x, y) {
-        this.Heals.push(Heal.create(this.scene, this.Player, x, y, { x: -30, y: 0 }));
+        this.Heals.push(Heal.create(this.scene, this.Player, x, y, { x: -100, y: 0 }));
       },
       dropPowerUP(x, y) {
-        this.PowerUps.push(PowerUp.create(this.scene, this.Player, x, y, { x: -30, y: 0 }));
+        this.PowerUps.push(PowerUp.create(this.scene, this.Player, x, y, { x: -100, y: 0 }));
       },
       updateEnemies() {
         // if (this.EnemyController.Types.Crow.fleed < 20) {

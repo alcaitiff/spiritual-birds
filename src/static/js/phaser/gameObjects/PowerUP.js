@@ -69,7 +69,7 @@ const PowerUp = {
         }
         this.arcadeSprite.setVelocityX(vel.x);
         this.arcadeSprite.setVelocityY(vel.y);
-        this.arcadeSprite.setScale(0.4, 0.4);
+        this.arcadeSprite.setScale(0.8, 0.8);
         this.arcadeSprite.body.height *= 0.4;
         this.arcadeSprite.body.width *= 0.4;
         this.arcadeSprite.play('powerup-appear');

@@ -37,7 +37,7 @@ const EnemyController = {
           create: Pidgeon.create.bind(Pidgeon)
         },
         BlueJay: {
-          min: 0,
+          min: 1,
           alive: [],
           killed: 0,
           fleed: 0,
