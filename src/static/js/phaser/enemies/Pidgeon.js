@@ -48,7 +48,7 @@ const Pidgeon = {
         },
         {
           type: GameController.dropTypes.PowerUP,
-          chance: 40
+          chance: 60
         }
       ],
       dropController: DropController.create(),

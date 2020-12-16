@@ -48,7 +48,7 @@ const Bluebird = {
       dropTable: [
         {
           type: GameController.dropTypes.Heal,
-          chance: 50
+          chance: 70
         },
         {
           type: GameController.dropTypes.PowerUP,

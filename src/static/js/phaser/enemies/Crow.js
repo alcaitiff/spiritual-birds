@@ -47,7 +47,7 @@ const Crow = {
         },
         {
           type: GameController.dropTypes.PowerUP,
-          chance: 30
+          chance: 50
         }
       ],
       dropController: DropController.create(),

@@ -106,9 +106,9 @@ const Player = {
           this.usePowerup();
         }, this);
 
-        scene.input.keyboard.on('keydown-' + 'E', () => {
-          this.powerup();
-        }, this);
+        // scene.input.keyboard.on('keydown-' + 'E', () => {
+        //   this.powerup();
+        // }, this);
         return this;
       },
       shoot() {

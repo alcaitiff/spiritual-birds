@@ -43,11 +43,11 @@ const Woodpecker = {
       dropTable: [
         {
           type: GameController.dropTypes.Heal,
-          chance: 1
+          chance: 10
         },
         {
           type: GameController.dropTypes.PowerUP,
-          chance: 25
+          chance: 75
         }
       ],
       dropController: DropController.create(),
