@@ -59,7 +59,7 @@ const Woodpecker = {
         this.arcadeSprite.setScale(0.9, 0.9);
         this.arcadeSprite.body.setAllowGravity(false);
         this.arcadeSprite.body.setSize(this.arcadeSprite.body.width * 0.7, this.arcadeSprite.body.height * 0.2);
-        this.arcadeSprite.body.setOffset(15, 40);
+        this.arcadeSprite.body.setOffset(20, 80);
         this.arcadeSprite.play('flyW');
         this.arcadeSprite.flipX = true;
         this.arcadeSprite.setActive(true);

@@ -89,7 +89,7 @@ const Player = {
         this.arcadeSprite.setScale(0.8, 0.8);
         this.arcadeSprite.flipX = true;
         this.arcadeSprite.body.setSize(this.arcadeSprite.body.width * 0.4, this.arcadeSprite.body.height * 0.5);
-        this.arcadeSprite.body.setOffset(40, 10);
+        this.arcadeSprite.body.setOffset(120, 25);
         this.arcadeSprite.control = this;
         this.arcadeSprite.setActive(true);
         this.arcadeSprite.setCollideWorldBounds(true);

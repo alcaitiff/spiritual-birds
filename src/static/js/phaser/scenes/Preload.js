@@ -75,6 +75,11 @@ const Preload = {
       frameHeight: 512
     });
 
+    this.load.spritesheet('gb', 'assets/sprites/ghostball.png', {
+      frameWidth: 512,
+      frameHeight: 512
+    });
+
     this.load.spritesheet('powerup', 'assets/sprites/fire.png', {
       frameWidth: 156,
       frameHeight: 157

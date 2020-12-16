@@ -1,6 +1,7 @@
 import config from '../config.json';
 import GameController from '../controller/GameController';
 import DropController from '../controller/DropController';
+import GB from '../gameObjects/GB';
 const Pidgeon = {
   sounds: {
     death: null
@@ -31,7 +32,7 @@ const Pidgeon = {
       });
     }
   },
-  create(scene, group) {
+  create(scene, group, bulletGroup) {
     this.initialize(scene);
     const newObj = {
       sounds: this.sounds,
@@ -51,19 +52,35 @@ const Pidgeon = {
         }
       ],
       dropController: DropController.create(),
+      bullets: [],
+      spread: -1,
+      shootInterval: 2500,
+      lastShoot: 0,
+      bulletGroup: bulletGroup,
       dead: false,
+      scene: scene,
       construct(group) {
         this.arcadeSprite = group.create(config.width + 20, Math.random() * (config.height - 100), 'pidgeon');
         this.arcadeSprite.setVelocityX(-250 - Math.random() * 50);
         this.arcadeSprite.setVelocityY(-Math.random() * 150);
         this.arcadeSprite.setScale(0.7, 0.7);
         this.arcadeSprite.body.setSize(this.arcadeSprite.body.width * 0.6, this.arcadeSprite.body.height * 0.4);
-        this.arcadeSprite.body.setOffset(15, 25);
+        this.arcadeSprite.body.setOffset(25, 45);
         this.arcadeSprite.play('flyP');
         this.arcadeSprite.flipX = true;
         this.arcadeSprite.setActive(true);
         this.arcadeSprite.control = this;
         return this;
+      },
+      shoot() {
+        if (!this.dead && this.arcadeSprite && this.scene && this.lastShoot === this.shootInterval) {
+          this.bullets.push(GB.create(this.scene, this, false));
+          this.lastShoot = 0;
+        } else {
+          // console.log(this.lastShoot);
+          // console.log(!this.dead+' &&'+ this.arcadeSprite+' &&'+ this.scene+' &&'+  this.lastShoot === this.shootInterval
+          this.lastShoot++;
+        }
       },
       bounce() {
         if (this.arcadeSprite && !this.dead) {
@@ -103,7 +120,13 @@ const Pidgeon = {
         if (!this.dead) {
           this.arcadeSprite.setVelocityY(Math.round(Math.cos(this.arcadeSprite.body.x / 36) * 150));
           this.arcadeSprite.setVelocityX(this.arcadeSprite.body.velocity.x - Math.round(Math.sin(this.arcadeSprite.body.x / 36) * 10));
+          this.shoot();
         }
+        this.bullets.forEach((element, index) => {
+          if (element === null || !element.update()) {
+            this.bullets.splice(index, 1);
+          };
+        });
         if (
           !this.arcadeSprite || !this.arcadeSprite.body || this.arcadeSprite.body.x <= 0 ||
            this.arcadeSprite.body.y > config.height - 10 || this.arcadeSprite.body.y < -200

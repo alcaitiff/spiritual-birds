@@ -67,7 +67,7 @@ const Hawk = {
         this.arcadeSprite.setVelocityY(-100 - Math.random() * 150);
         this.arcadeSprite.setScale(1, 1);
         this.arcadeSprite.body.setSize(this.arcadeSprite.body.width * 0.4, this.arcadeSprite.body.height * 0.5);
-        this.arcadeSprite.body.setOffset(20, 25);
+        this.arcadeSprite.body.setOffset(30, 65);
         this.arcadeSprite.play('flyH');
         this.arcadeSprite.flipX = true;
         this.arcadeSprite.setActive(true);

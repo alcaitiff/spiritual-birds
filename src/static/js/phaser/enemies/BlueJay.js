@@ -1,6 +1,7 @@
 import config from '../config.json';
 import GameController from '../controller/GameController';
 import DropController from '../controller/DropController';
+import GB from '../gameObjects/GB';
 const Bluebird = {
   sounds: {
     death: null
@@ -31,7 +32,7 @@ const Bluebird = {
       });
     }
   },
-  create(scene, group) {
+  create(scene, group, bulletGroup) {
     this.initialize(scene);
     const newObj = {
       sounds: this.sounds,
@@ -39,7 +40,11 @@ const Bluebird = {
       arcadeSprite: null,
       hp: 3,
       dmg: 3,
+      bullets: [],
       points: 3,
+      spread: 2,
+      shootInterval: 250,
+      lastShoot: 225,
       dropTable: [
         {
           type: GameController.dropTypes.Heal,
@@ -52,19 +57,29 @@ const Bluebird = {
       ],
       dropController: DropController.create(),
       dead: false,
+      bulletGroup: bulletGroup,
+      scene: scene,
       construct(group) {
         this.arcadeSprite = group.create(config.width + 20, Math.random() * (config.height - 200) + 200, 'bluejay');
         this.arcadeSprite.setVelocityX(-200 - Math.random() * 50);
         this.arcadeSprite.setVelocityY(-Math.random() * 50);
         this.arcadeSprite.body.setAllowGravity(false);
         this.arcadeSprite.setScale(0.75, 0.75);
-        this.arcadeSprite.body.setSize(this.arcadeSprite.body.width * 0.4, this.arcadeSprite.body.height * 0.5);
-        this.arcadeSprite.body.setOffset(20, 15);
+        this.arcadeSprite.body.setSize(this.arcadeSprite.body.width * 0.4, this.arcadeSprite.body.height * 0.4);
+        this.arcadeSprite.body.setOffset(40, 45);
         this.arcadeSprite.play('flyB');
         this.arcadeSprite.flipX = true;
         this.arcadeSprite.setActive(true);
         this.arcadeSprite.control = this;
         return this;
+      },
+      shoot() {
+        if (!this.dead && this.arcadeSprite && this.scene && this.lastShoot === this.shootInterval) {
+          this.bullets.push(GB.create(this.scene, this, false));
+          this.lastShoot = 0;
+        } else {
+          this.lastShoot++;
+        }
       },
       bounce() {
         if (this.arcadeSprite && !this.dead) {
@@ -104,7 +119,13 @@ const Bluebird = {
         if (!this.dead) {
           this.arcadeSprite.setVelocityY(10 + Math.round(Math.cos(this.arcadeSprite.body.x / 36) * 150));
           this.arcadeSprite.setVelocityX(this.arcadeSprite.body.velocity.x - Math.round(Math.sin(this.arcadeSprite.body.x / 36) * 5));
+          this.shoot();
         }
+        this.bullets.forEach((element, index) => {
+          if (element === null || !element.update()) {
+            this.bullets.splice(index, 1);
+          };
+        });
         if (
           !this.arcadeSprite || !this.arcadeSprite.body || this.arcadeSprite.body.x <= 0 ||
            this.arcadeSprite.body.y > config.height - 10 || this.arcadeSprite.body.y < -200

@@ -57,8 +57,8 @@ const Crow = {
         this.arcadeSprite.setVelocityX(-300 - Math.random() * 250);
         this.arcadeSprite.setVelocityY(-150 - Math.random() * 100);
         this.arcadeSprite.setScale(0.8, 0.8);
-        this.arcadeSprite.body.setSize(this.arcadeSprite.body.width * 0.4, this.arcadeSprite.body.height * 0.5);
-        this.arcadeSprite.body.setOffset(15, 15);
+        this.arcadeSprite.body.setSize(this.arcadeSprite.body.width * 0.4, this.arcadeSprite.body.height * 0.4);
+        this.arcadeSprite.body.setOffset(35, 45);
         this.arcadeSprite.play('flyC');
         this.arcadeSprite.flipX = true;
         this.arcadeSprite.setActive(true);

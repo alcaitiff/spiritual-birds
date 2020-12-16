@@ -37,7 +37,7 @@ const EnemyController = {
           create: Pidgeon.create.bind(Pidgeon)
         },
         BlueJay: {
-          min: 1,
+          min: 0,
           alive: [],
           killed: 0,
           fleed: 0,
@@ -52,17 +52,27 @@ const EnemyController = {
         }
       },
       enemyGroup: null,
+      bulletGroup: null,
       player: null,
       construct(scene, player, gameController) {
         this.player = player;
         this.gameController = gameController;
         this.enemyGroup = scene.physics.add.group();
+        this.bulletGroup = scene.physics.add.group();
         scene.physics.add.collider(
           player.arcadeSprite,
           this.enemyGroup,
           (player, enemy) => {
             player.control.hit(scene, enemy.control.dmg);
             enemy.control.bounce();
+          }
+        );
+        scene.physics.add.collider(
+          player.arcadeSprite,
+          this.bulletGroup,
+          (player, bullet) => {
+            bullet.control.hit(bullet);
+            player.control.hit(scene, bullet.control.dmg);
           }
         );
         scene.physics.add.collider(
@@ -81,7 +91,7 @@ const EnemyController = {
       },
       generate(type) {
         while (type.alive.length < type.min) {
-          type.alive.push(type.create(scene, this.enemyGroup));
+          type.alive.push(type.create(scene, this.enemyGroup, this.bulletGroup));
         }
       },
       updateType(type) {
