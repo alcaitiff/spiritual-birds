@@ -25,6 +25,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin: 0px;
+  display: inline-block;
 }
 html,
 body {
