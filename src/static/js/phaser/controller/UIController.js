@@ -36,6 +36,7 @@ const UIController = {
       HPText: null,
       LifeBar: null,
       LastBulletsValue: 0,
+      HelpTextDuration: 0,
       bullets: [],
       construct(scene, player) {
         this.Player = player;
@@ -43,9 +44,21 @@ const UIController = {
         this.bulletsText = scene.add.text(config.width - 550, 10, '', config.textStyle);
         this.HPText = scene.add.text(20, 10, '', config.textStyle);
         this.PowerUPText = scene.add.text(20, 30, '', config.textStyle);
+        this.HelpText = scene.add.text(50, config.height - 300, '', config.textStyle);
         this.LifeBar = LifeBar.create(scene, 100, 12);
         this.PowerUPWheel = PowerUPWheel.create(scene, player);
         return this;
+      },
+      setHelpText(text, duration) {
+        this.HelpTextDuration = duration;
+        this.HelpText.setText(text);
+      },
+      updateHelpText() {
+        if (this.HelpTextDuration > 0) {
+          this.HelpTextDuration--;
+        } else {
+          this.HelpText.setText('');
+        }
       },
       addBullets(scene, n) {
         while (n > 0) {
@@ -86,6 +99,7 @@ const UIController = {
         this.LifeBar.set(this.Player.HP / this.Player.getMaxHP() * 100);
         this.PowerUPWheel.update();
         this.updateBullets(scene);
+        this.updateHelpText();
       }
     };
     return newObj.construct(scene, player);

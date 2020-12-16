@@ -44,11 +44,11 @@ const Pidgeon = {
       dropTable: [
         {
           type: GameController.dropTypes.Heal,
-          chance: 5
+          chance: 15
         },
         {
           type: GameController.dropTypes.PowerUP,
-          chance: 20
+          chance: 40
         }
       ],
       dropController: DropController.create(),

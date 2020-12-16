@@ -64,25 +64,34 @@ const GameController = {
         this.updateHeals();
 
         const e = this.EnemyController.Types;
-        if (e.Pidgeon.fleed === 3 && this.PowerUps.length === 0 && this.Player.getMaxBullets() === 0) {
+        if (e.Pidgeon.fleed === 0) {
+          this.UIController.setHelpText('Use the arrow keys to fly around. \nDon\'t let the evil birds to touch you.', 100);
+        }
+        if (e.Pidgeon.fleed === 2 && this.PowerUps.length === 0 && this.Player.getMaxBullets() === 0) {
           e.Pidgeon.min = 0;
+          this.UIController.setHelpText('Get the spirit fire to powerup. Use "Q" to shoot.', 400);
           this.PowerUps.push(PowerUp.create(scene, this.Player, config.width / 2, config.height / 2, { x: 0, y: 0 }));
         }
-        if (e.Pidgeon.fleed === 3 && this.Player.getMaxBullets() > 0) {
+        if (e.Pidgeon.fleed === 2 && this.Player.getMaxBullets() > 0) {
+          this.UIController.setHelpText('For now you only have one bullet. \nKill a pideon to get more spirit fire.', 400);
           e.Pidgeon.min = 2;
         }
         if (e.Pidgeon.fleed + e.Pidgeon.killed === 10) {
+          this.UIController.setHelpText('Use "W" to use your spirit fire and powerup.\nEach powerup is diferent.', 400);
           e.Woodpecker.min = 1;
         }
         if (e.Woodpecker.fleed + e.Woodpecker.killed === 10) {
+          this.UIController.setHelpText('The power ups available are speed, ammunition, max HP, spread, damage and helpers.', 400);
           e.Woodpecker.min = 2;
         }
         if (e.Woodpecker.fleed + e.Woodpecker.killed === 20) {
+          this.UIController.setHelpText('Some birds can shoot you, and some need more than one shoot to be defeated.', 400);
           e.Woodpecker.min = 1;
           e.Pidgeon.min = 1;
           e.BlueJay.min = 1;
         }
         if (e.Woodpecker.fleed + e.Woodpecker.killed === 30) {
+          this.UIController.setHelpText('Increase your life or you can die in one hit to hawks and other strong enemies.', 400);
           e.Woodpecker.min = 1;
           e.Pidgeon.min = 0;
           e.BlueJay.min = 1;
