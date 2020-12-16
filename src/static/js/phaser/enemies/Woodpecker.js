@@ -37,8 +37,8 @@ const Woodpecker = {
       sounds: this.sounds,
       anims: this.anims,
       arcadeSprite: null,
-      hp: 3,
-      dmg: 3,
+      hp: 2,
+      dmg: 1,
       points: 3,
       dropTable: [
         {
