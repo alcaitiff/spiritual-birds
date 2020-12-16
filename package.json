@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "deploy": "./deploy.sh"
+    "deploy": "yarn build && ./deploy.sh"
   },
   "dependencies": {
     "@ion-phaser/core": "^1.2.3",
