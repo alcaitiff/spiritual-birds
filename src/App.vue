@@ -26,6 +26,9 @@ export default {
   color: #2c3e50;
   margin: 0px;
   display: inline-block;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 html,
 body {
@@ -34,7 +37,9 @@ body {
   background: #000000;
 }
 body {
-  background-image: url("../public/assets/parallax/BG.png");
-  background: repeat;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  display: inline-block;
 }
 </style>
