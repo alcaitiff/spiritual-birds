@@ -1,7 +1,7 @@
 import config from '../config.json';
 import GameController from '../controller/GameController';
 import DropController from '../controller/DropController';
-const Vulture = {
+const Crow = {
   sounds: {
     death: null
   },
@@ -16,18 +16,18 @@ const Vulture = {
     }
     if (!this.anims.fly) {
       this.anims.fly = scene.anims.create({
-        key: 'flyV',
-        frames: scene.anims.generateFrameNumbers('vulture'),
-        frameRate: 17,
+        key: 'flyC',
+        frames: scene.anims.generateFrameNumbers('crow'),
+        frameRate: 14,
         repeat: -1
       });
     }
     if (!this.anims.fall) {
       this.anims.fall = scene.anims.create({
-        key: 'fallV',
-        frames: scene.anims.generateFrameNumbers('vulture', { start: 2, end: 5 }),
-        frameRate: 17,
-        repeat: 2
+        key: 'fallC',
+        frames: scene.anims.generateFrameNumbers('crow', { start: 3, end: 5 }),
+        frameRate: 10,
+        repeat: 0
       });
     }
   },
@@ -37,30 +37,29 @@ const Vulture = {
       sounds: this.sounds,
       anims: this.anims,
       arcadeSprite: null,
-      hp: 3,
-      dmg: 3,
-      points: 3,
+      hp: 2,
+      dmg: 2,
+      points: 5,
       dropTable: [
         {
           type: GameController.dropTypes.Heal,
-          chance: 1
+          chance: 20
         },
         {
           type: GameController.dropTypes.PowerUP,
-          chance: 25
+          chance: 30
         }
       ],
       dropController: DropController.create(),
       dead: false,
       construct(group) {
-        this.arcadeSprite = group.create(config.width + 20, Math.random() * (config.height - 400), 'vulture');
-        this.arcadeSprite.setVelocityX(-100 - Math.random() * 350);
-        this.arcadeSprite.setVelocityY(0);
-        this.arcadeSprite.setScale(1.5, 1.5);
-        this.arcadeSprite.body.setAllowGravity(false);
-        this.arcadeSprite.body.setSize(this.arcadeSprite.body.width * 0.7, this.arcadeSprite.body.height * 0.2);
-        this.arcadeSprite.body.setOffset(15, 40);
-        this.arcadeSprite.play('flyV');
+        this.arcadeSprite = group.create(config.width + 20, Math.random() * config.height, 'crow');
+        this.arcadeSprite.setVelocityX(-300 - Math.random() * 250);
+        this.arcadeSprite.setVelocityY(-150 - Math.random() * 100);
+        this.arcadeSprite.setScale(0.8, 0.8);
+        this.arcadeSprite.body.setSize(this.arcadeSprite.body.width * 0.4, this.arcadeSprite.body.height * 0.5);
+        this.arcadeSprite.body.setOffset(15, 15);
+        this.arcadeSprite.play('flyC');
         this.arcadeSprite.flipX = true;
         this.arcadeSprite.setActive(true);
         this.arcadeSprite.control = this;
@@ -73,6 +72,7 @@ const Vulture = {
             () => {
               if (this.arcadeSprite && this.arcadeSprite.body && !this.dead) {
                 this.arcadeSprite.setVelocityX(-300 - Math.random() * 150);
+                this.arcadeSprite.setVelocityY(-150 - Math.random() * 50);
               }
             }, 1000);
         }
@@ -88,6 +88,7 @@ const Vulture = {
           }
         } else {
           this.arcadeSprite.setVelocityX(-300 - Math.random() * 150);
+          this.arcadeSprite.setVelocityY(-150 - Math.random() * 50);
           return { points: 1, drop: null };
         }
       },
@@ -95,9 +96,9 @@ const Vulture = {
         this.dead = true;
         this.sounds.death.play();
         this.arcadeSprite.setVelocityX(50);
-        this.arcadeSprite.setVelocityY(350);
-        this.arcadeSprite.setAngularVelocity(250);
-        this.arcadeSprite.play('fallV');
+        this.arcadeSprite.setVelocityY(200);
+        this.arcadeSprite.setAngularVelocity(200);
+        this.arcadeSprite.play('fallC');
         this.arcadeSprite.flipY = true;
       },
       update() {
@@ -115,4 +116,4 @@ const Vulture = {
     return newObj.construct(group);
   }
 };
-export default Vulture;
+export default Crow;

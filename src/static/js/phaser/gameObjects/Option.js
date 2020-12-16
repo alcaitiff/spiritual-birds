@@ -19,7 +19,7 @@ const Option = {
         this.player = player;
         this.arcadeSprite = scene.physics.add.sprite(player.arcadeSprite.body.x - 45, player.arcadeSprite.body.y + 60, 'player');
         this.arcadeSprite.flipX = true;
-        this.arcadeSprite.setScale(0.7, 0.7);
+        this.arcadeSprite.setScale(0.3, 0.3);
         this.arcadeSprite.body.height *= 0.5;
         this.arcadeSprite.body.width *= 0.4;
         this.arcadeSprite.body.offset.x = 40;

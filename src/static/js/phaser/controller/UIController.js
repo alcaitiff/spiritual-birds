@@ -39,8 +39,8 @@ const UIController = {
       bullets: [],
       construct(scene, player) {
         this.Player = player;
-        this.scoreText = scene.add.text(config.width / 2 - 20, 10, 'SCORE:  ' + this.Player.score, config.textStyle);
-        this.bulletsText = scene.add.text(config.width - 250, 10, '', config.textStyle);
+        this.scoreText = scene.add.text(config.width / 2 - 40, 10, 'SCORE:  ' + this.Player.score, config.textStyle);
+        this.bulletsText = scene.add.text(config.width - 550, 10, '', config.textStyle);
         this.HPText = scene.add.text(20, 10, '', config.textStyle);
         this.PowerUPText = scene.add.text(20, 30, '', config.textStyle);
         this.LifeBar = LifeBar.create(scene, 100, 12);
@@ -49,8 +49,8 @@ const UIController = {
       },
       addBullets(scene, n) {
         while (n > 0) {
-          const bullet = scene.add.sprite(config.width - 160 + this.bullets.length * 17, 17, 'powerup');
-          bullet.setScale(0.17, 0.17);
+          const bullet = scene.add.sprite(config.width - 380 + this.bullets.length * 35, 21, 'powerup');
+          bullet.setScale(0.35, 0.35);
           bullet.play('powerup-ico-appear');
           this.bullets.push(bullet);
           --n;

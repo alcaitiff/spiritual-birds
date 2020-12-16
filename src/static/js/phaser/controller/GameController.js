@@ -41,10 +41,10 @@ const GameController = {
         this.PowerUps.push(PowerUp.create(this.scene, this.Player, x, y, { x: -30, y: 0 }));
       },
       updateEnemies() {
-        // if (this.EnemyController.Types.GrayBird.fleed < 20) {
-        //   this.EnemyController.Types.GrayBird.min = 2;
+        // if (this.EnemyController.Types.Crow.fleed < 20) {
+        //   this.EnemyController.Types.Crow.min = 2;
         // } else {
-        //   this.EnemyController.Types.GrayBird.min = Math.round(this.EnemyController.Types.GrayBird.fleed / 10);
+        //   this.EnemyController.Types.Crow.min = Math.round(this.EnemyController.Types.Crow.fleed / 10);
         // }
         this.EnemyController.update(this.scene);
       },

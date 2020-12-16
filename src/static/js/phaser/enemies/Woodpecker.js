@@ -1,7 +1,7 @@
 import config from '../config.json';
 import GameController from '../controller/GameController';
 import DropController from '../controller/DropController';
-const Bluebird = {
+const Woodpecker = {
   sounds: {
     death: null
   },
@@ -16,16 +16,16 @@ const Bluebird = {
     }
     if (!this.anims.fly) {
       this.anims.fly = scene.anims.create({
-        key: 'flyB',
-        frames: scene.anims.generateFrameNumbers('bluebird', { start: 0, end: 7 }),
-        frameRate: 18,
+        key: 'flyW',
+        frames: scene.anims.generateFrameNumbers('woodpecker'),
+        frameRate: 17,
         repeat: -1
       });
     }
     if (!this.anims.fall) {
       this.anims.fall = scene.anims.create({
-        key: 'fallB',
-        frames: scene.anims.generateFrameNumbers('bluebird', { start: 2, end: 5 }),
+        key: 'fallW',
+        frames: scene.anims.generateFrameNumbers('woodpecker', { start: 2, end: 5 }),
         frameRate: 17,
         repeat: 2
       });
@@ -43,24 +43,24 @@ const Bluebird = {
       dropTable: [
         {
           type: GameController.dropTypes.Heal,
-          chance: 50
+          chance: 1
         },
         {
           type: GameController.dropTypes.PowerUP,
-          chance: 50
+          chance: 25
         }
       ],
       dropController: DropController.create(),
       dead: false,
       construct(group) {
-        this.arcadeSprite = group.create(config.width + 20, Math.random() * (config.height - 200) + 200, 'bluebird');
-        this.arcadeSprite.setVelocityX(-200 - Math.random() * 50);
-        this.arcadeSprite.setVelocityY(-Math.random() * 50);
+        this.arcadeSprite = group.create(config.width + 20, Math.random() * (config.height - 400), 'woodpecker');
+        this.arcadeSprite.setVelocityX(-100 - Math.random() * 350);
+        this.arcadeSprite.setVelocityY(0);
+        this.arcadeSprite.setScale(0.9, 0.9);
         this.arcadeSprite.body.setAllowGravity(false);
-        this.arcadeSprite.setScale(1.5, 1.5);
-        this.arcadeSprite.body.setSize(this.arcadeSprite.body.width * 0.4, this.arcadeSprite.body.height * 0.5);
-        this.arcadeSprite.body.setOffset(20, 15);
-        this.arcadeSprite.play('flyB');
+        this.arcadeSprite.body.setSize(this.arcadeSprite.body.width * 0.7, this.arcadeSprite.body.height * 0.2);
+        this.arcadeSprite.body.setOffset(15, 40);
+        this.arcadeSprite.play('flyW');
         this.arcadeSprite.flipX = true;
         this.arcadeSprite.setActive(true);
         this.arcadeSprite.control = this;
@@ -72,9 +72,9 @@ const Bluebird = {
           setTimeout(
             () => {
               if (this.arcadeSprite && this.arcadeSprite.body && !this.dead) {
-                this.arcadeSprite.setVelocityX(-Math.random() * 50);
+                this.arcadeSprite.setVelocityX(-300 - Math.random() * 150);
               }
-            }, 1500);
+            }, 1000);
         }
       },
       hit(dmg) {
@@ -87,7 +87,7 @@ const Bluebird = {
             return { points: 0, drop: null };
           }
         } else {
-          this.arcadeSprite.setVelocityX(-100 - Math.random() * 50);
+          this.arcadeSprite.setVelocityX(-300 - Math.random() * 150);
           return { points: 1, drop: null };
         }
       },
@@ -95,16 +95,12 @@ const Bluebird = {
         this.dead = true;
         this.sounds.death.play();
         this.arcadeSprite.setVelocityX(50);
-        this.arcadeSprite.setVelocityY(450);
-        this.arcadeSprite.setAngularVelocity(300);
-        this.arcadeSprite.play('fallB');
+        this.arcadeSprite.setVelocityY(350);
+        this.arcadeSprite.setAngularVelocity(250);
+        this.arcadeSprite.play('fallW');
         this.arcadeSprite.flipY = true;
       },
       update() {
-        if (!this.dead) {
-          this.arcadeSprite.setVelocityY(10 + Math.round(Math.cos(this.arcadeSprite.body.x / 36) * 150));
-          this.arcadeSprite.setVelocityX(this.arcadeSprite.body.velocity.x - Math.round(Math.sin(this.arcadeSprite.body.x / 36) * 5));
-        }
         if (
           !this.arcadeSprite || !this.arcadeSprite.body || this.arcadeSprite.body.x <= 0 ||
            this.arcadeSprite.body.y > config.height - 10 || this.arcadeSprite.body.y < -200
@@ -119,4 +115,4 @@ const Bluebird = {
     return newObj.construct(group);
   }
 };
-export default Bluebird;
+export default Woodpecker;

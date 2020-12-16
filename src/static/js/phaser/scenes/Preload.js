@@ -36,28 +36,28 @@ const Preload = {
     this.load.audio('heal_appear_sound', 'assets/sounds/healappear.ogg');
 
     this.load.spritesheet('player', 'assets/sprites/sparrow.png', {
-      frameWidth: 100,
-      frameHeight: 71
+      frameWidth: 250,
+      frameHeight: 178
     });
 
-    this.load.spritesheet('graybird', 'assets/sprites/graybird.png', {
-      frameWidth: 64,
-      frameHeight: 48
+    this.load.spritesheet('crow', 'assets/sprites/crow.png', {
+      frameWidth: 200,
+      frameHeight: 200
     });
 
-    this.load.spritesheet('vulture', 'assets/sprites/vulture.png', {
-      frameWidth: 100,
-      frameHeight: 100
+    this.load.spritesheet('woodpecker', 'assets/sprites/woodpecker.png', {
+      frameWidth: 200,
+      frameHeight: 200
     });
 
-    this.load.spritesheet('eagle', 'assets/sprites/eagle.png', {
-      frameWidth: 100,
-      frameHeight: 100
+    this.load.spritesheet('hawk', 'assets/sprites/hawk.png', {
+      frameWidth: 200,
+      frameHeight: 200
     });
 
-    this.load.spritesheet('bluebird', 'assets/sprites/bluebird.png', {
-      frameWidth: 100,
-      frameHeight: 100
+    this.load.spritesheet('bluejay', 'assets/sprites/bluejay.png', {
+      frameWidth: 200,
+      frameHeight: 200
     });
 
     this.load.spritesheet('orangebird', 'assets/sprites/orangebird.png', {
@@ -66,13 +66,13 @@ const Preload = {
     });
 
     this.load.spritesheet('pidgeon', 'assets/sprites/pidgeon.png', {
-      frameWidth: 80,
-      frameHeight: 80
+      frameWidth: 200,
+      frameHeight: 200
     });
 
     this.load.spritesheet('fb', 'assets/sprites/fireball.png', {
-      frameWidth: 40,
-      frameHeight: 25
+      frameWidth: 512,
+      frameHeight: 512
     });
 
     this.load.spritesheet('powerup', 'assets/sprites/fire.png', {

@@ -1,33 +1,33 @@
-import GrayBird from '../enemies/GrayBird';
-import Vulture from '../enemies/Vulture';
-import Eagle from '../enemies/Eagle';
+import Crow from '../enemies/Crow';
+import Woodpecker from '../enemies/Woodpecker';
+import Hawk from '../enemies/Hawk';
 import Pidgeon from '../enemies/Pidgeon';
-import BlueBird from '../enemies/BlueBird';
+import BlueJay from '../enemies/BlueJay';
 import OrangeBird from '../enemies/OrangeBird';
 const EnemyController = {
   create(scene, player, gameController) {
     const newObj = {
       Types: {
-        GrayBird: {
-          min: 1,
+        Crow: {
+          min: 0,
           alive: [],
           killed: 0,
           fleed: 0,
-          create: GrayBird.create.bind(GrayBird)
+          create: Crow.create.bind(Crow)
         },
-        Vulture: {
-          min: 1,
+        Woodpecker: {
+          min: 0,
           alive: [],
           killed: 0,
           fleed: 0,
-          create: Vulture.create.bind(Vulture)
+          create: Woodpecker.create.bind(Woodpecker)
         },
-        Eagle: {
-          min: 1,
+        Hawk: {
+          min: 0,
           alive: [],
           killed: 0,
           fleed: 0,
-          create: Eagle.create.bind(Eagle)
+          create: Hawk.create.bind(Hawk)
         },
         Pidgeon: {
           min: 1,
@@ -36,15 +36,15 @@ const EnemyController = {
           fleed: 0,
           create: Pidgeon.create.bind(Pidgeon)
         },
-        BlueBird: {
-          min: 1,
+        BlueJay: {
+          min: 0,
           alive: [],
           killed: 0,
           fleed: 0,
-          create: BlueBird.create.bind(BlueBird)
+          create: BlueJay.create.bind(BlueJay)
         },
         OrangeBird: {
-          min: 1,
+          min: 0,
           alive: [],
           killed: 0,
           fleed: 0,

@@ -1,7 +1,7 @@
 import config from '../config.json';
 import GameController from '../controller/GameController';
 import DropController from '../controller/DropController';
-const Eagle = {
+const Hawk = {
   sounds: {
     death: null
   },
@@ -17,24 +17,24 @@ const Eagle = {
     }
     if (!this.anims.fly) {
       this.anims.fly = scene.anims.create({
-        key: 'flyE',
-        frames: scene.anims.generateFrameNumbers('eagle'),
+        key: 'flyH',
+        frames: scene.anims.generateFrameNumbers('hawk'),
         frameRate: 22,
         repeat: -1
       });
     }
     if (!this.anims.fall) {
       this.anims.fall = scene.anims.create({
-        key: 'fallE',
-        frames: scene.anims.generateFrameNumbers('eagle', { start: 2, end: 5 }),
+        key: 'fallH',
+        frames: scene.anims.generateFrameNumbers('hawk', { start: 2, end: 5 }),
         frameRate: 17,
         repeat: 2
       });
     }
     if (!this.anims.dive) {
       this.anims.dive = scene.anims.create({
-        key: 'diveE',
-        frames: scene.anims.generateFrameNumbers('eagle', { start: 3, end: 2 }),
+        key: 'diveH',
+        frames: scene.anims.generateFrameNumbers('hawk', { start: 3, end: 2 }),
         frameRate: 17,
         repeat: 0
       });
@@ -62,13 +62,13 @@ const Eagle = {
       points: 10,
       dead: false,
       construct(group) {
-        this.arcadeSprite = group.create(config.width + 20, Math.random() * (config.height - 500), 'eagle');
+        this.arcadeSprite = group.create(config.width + 20, Math.random() * (config.height - 500), 'hawk');
         this.arcadeSprite.setVelocityX(-200 - Math.random() * 150);
         this.arcadeSprite.setVelocityY(-100 - Math.random() * 150);
-        this.arcadeSprite.setScale(1.5, 1.5);
+        this.arcadeSprite.setScale(1, 1);
         this.arcadeSprite.body.setSize(this.arcadeSprite.body.width * 0.4, this.arcadeSprite.body.height * 0.5);
         this.arcadeSprite.body.setOffset(20, 25);
-        this.arcadeSprite.play('flyE');
+        this.arcadeSprite.play('flyH');
         this.arcadeSprite.flipX = true;
         this.arcadeSprite.setActive(true);
         this.arcadeSprite.control = this;
@@ -106,7 +106,7 @@ const Eagle = {
         this.arcadeSprite.setVelocityX(50);
         this.arcadeSprite.setVelocityY(350);
         this.arcadeSprite.setAngularVelocity(300);
-        this.arcadeSprite.play('fallE');
+        this.arcadeSprite.play('fallH');
         this.arcadeSprite.flipY = true;
       },
       update() {
@@ -117,7 +117,7 @@ const Eagle = {
             } else if (Math.round(this.arcadeSprite.angle) <= -40) {
               this.arcadeSprite.setVelocityY(400);
               this.arcadeSprite.setVelocityX(-400);
-              this.arcadeSprite.play('diveE');
+              this.arcadeSprite.play('diveH');
             }
           } else {
             this.arcadeSprite.angle = 20;
@@ -137,4 +137,4 @@ const Eagle = {
     return newObj.construct(group);
   }
 };
-export default Eagle;
+export default Hawk;

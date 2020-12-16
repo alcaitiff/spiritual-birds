@@ -1,7 +1,7 @@
 import config from '../config.json';
 import GameController from '../controller/GameController';
 import DropController from '../controller/DropController';
-const GrayBird = {
+const Bluebird = {
   sounds: {
     death: null
   },
@@ -16,18 +16,18 @@ const GrayBird = {
     }
     if (!this.anims.fly) {
       this.anims.fly = scene.anims.create({
-        key: 'flyG',
-        frames: scene.anims.generateFrameNumbers('graybird'),
-        frameRate: 20,
+        key: 'flyB',
+        frames: scene.anims.generateFrameNumbers('bluejay', { start: 0, end: 7 }),
+        frameRate: 18,
         repeat: -1
       });
     }
     if (!this.anims.fall) {
       this.anims.fall = scene.anims.create({
-        key: 'fallG',
-        frames: scene.anims.generateFrameNumbers('graybird', { start: 3, end: 5 }),
-        frameRate: 10,
-        repeat: 0
+        key: 'fallB',
+        frames: scene.anims.generateFrameNumbers('bluejay', { start: 2, end: 5 }),
+        frameRate: 17,
+        repeat: 2
       });
     }
   },
@@ -37,29 +37,30 @@ const GrayBird = {
       sounds: this.sounds,
       anims: this.anims,
       arcadeSprite: null,
-      hp: 2,
-      dmg: 2,
-      points: 5,
+      hp: 3,
+      dmg: 3,
+      points: 3,
       dropTable: [
         {
           type: GameController.dropTypes.Heal,
-          chance: 20
+          chance: 50
         },
         {
           type: GameController.dropTypes.PowerUP,
-          chance: 30
+          chance: 50
         }
       ],
       dropController: DropController.create(),
       dead: false,
       construct(group) {
-        this.arcadeSprite = group.create(config.width + 20, Math.random() * config.height, 'graybird');
-        this.arcadeSprite.setVelocityX(-300 - Math.random() * 250);
-        this.arcadeSprite.setVelocityY(-150 - Math.random() * 100);
-        this.arcadeSprite.setScale(1.5, 1.5);
+        this.arcadeSprite = group.create(config.width + 20, Math.random() * (config.height - 200) + 200, 'bluejay');
+        this.arcadeSprite.setVelocityX(-200 - Math.random() * 50);
+        this.arcadeSprite.setVelocityY(-Math.random() * 50);
+        this.arcadeSprite.body.setAllowGravity(false);
+        this.arcadeSprite.setScale(0.75, 0.75);
         this.arcadeSprite.body.setSize(this.arcadeSprite.body.width * 0.4, this.arcadeSprite.body.height * 0.5);
-        this.arcadeSprite.body.setOffset(15, 15);
-        this.arcadeSprite.play('flyG');
+        this.arcadeSprite.body.setOffset(20, 15);
+        this.arcadeSprite.play('flyB');
         this.arcadeSprite.flipX = true;
         this.arcadeSprite.setActive(true);
         this.arcadeSprite.control = this;
@@ -71,10 +72,9 @@ const GrayBird = {
           setTimeout(
             () => {
               if (this.arcadeSprite && this.arcadeSprite.body && !this.dead) {
-                this.arcadeSprite.setVelocityX(-300 - Math.random() * 150);
-                this.arcadeSprite.setVelocityY(-150 - Math.random() * 50);
+                this.arcadeSprite.setVelocityX(-Math.random() * 50);
               }
-            }, 1000);
+            }, 1500);
         }
       },
       hit(dmg) {
@@ -87,8 +87,7 @@ const GrayBird = {
             return { points: 0, drop: null };
           }
         } else {
-          this.arcadeSprite.setVelocityX(-300 - Math.random() * 150);
-          this.arcadeSprite.setVelocityY(-150 - Math.random() * 50);
+          this.arcadeSprite.setVelocityX(-100 - Math.random() * 50);
           return { points: 1, drop: null };
         }
       },
@@ -96,12 +95,16 @@ const GrayBird = {
         this.dead = true;
         this.sounds.death.play();
         this.arcadeSprite.setVelocityX(50);
-        this.arcadeSprite.setVelocityY(200);
-        this.arcadeSprite.setAngularVelocity(200);
-        this.arcadeSprite.play('fallG');
+        this.arcadeSprite.setVelocityY(450);
+        this.arcadeSprite.setAngularVelocity(300);
+        this.arcadeSprite.play('fallB');
         this.arcadeSprite.flipY = true;
       },
       update() {
+        if (!this.dead) {
+          this.arcadeSprite.setVelocityY(10 + Math.round(Math.cos(this.arcadeSprite.body.x / 36) * 150));
+          this.arcadeSprite.setVelocityX(this.arcadeSprite.body.velocity.x - Math.round(Math.sin(this.arcadeSprite.body.x / 36) * 5));
+        }
         if (
           !this.arcadeSprite || !this.arcadeSprite.body || this.arcadeSprite.body.x <= 0 ||
            this.arcadeSprite.body.y > config.height - 10 || this.arcadeSprite.body.y < -200
@@ -116,4 +119,4 @@ const GrayBird = {
     return newObj.construct(group);
   }
 };
-export default GrayBird;
+export default Bluebird;
