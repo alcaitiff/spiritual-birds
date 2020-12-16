@@ -1,7 +1,5 @@
 <template>
-  <div id="app">
-    <ion-phaser v-bind:game.prop="game" />
-  </div>
+  <ion-phaser id="app" v-bind:game.prop="game" />
 </template>
 
 <script>
@@ -26,6 +24,16 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 0px;
+  margin: 0px;
+}
+html,
+body {
+  margin: 0px;
+  padding: 0px;
+  background: #000000;
+}
+body {
+  background-image: url("../public/assets/parallax/BG.png");
+  background: repeat;
 }
 </style>

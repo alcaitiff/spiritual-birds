@@ -3,26 +3,27 @@ import Vulture from '../enemies/Vulture';
 import Eagle from '../enemies/Eagle';
 import Pidgeon from '../enemies/Pidgeon';
 import BlueBird from '../enemies/BlueBird';
+import OrangeBird from '../enemies/OrangeBird';
 const EnemyController = {
   create(scene, player, gameController) {
     const newObj = {
       Types: {
         GrayBird: {
-          min: 0,
+          min: 1,
           alive: [],
           killed: 0,
           fleed: 0,
           create: GrayBird.create.bind(GrayBird)
         },
         Vulture: {
-          min: 0,
+          min: 1,
           alive: [],
           killed: 0,
           fleed: 0,
           create: Vulture.create.bind(Vulture)
         },
         Eagle: {
-          min: 0,
+          min: 1,
           alive: [],
           killed: 0,
           fleed: 0,
@@ -41,6 +42,13 @@ const EnemyController = {
           killed: 0,
           fleed: 0,
           create: BlueBird.create.bind(BlueBird)
+        },
+        OrangeBird: {
+          min: 1,
+          alive: [],
+          killed: 0,
+          fleed: 0,
+          create: OrangeBird.create.bind(OrangeBird)
         }
       },
       enemyGroup: null,

@@ -54,13 +54,11 @@ const Pidgeon = {
       dead: false,
       construct(group) {
         this.arcadeSprite = group.create(config.width + 20, Math.random() * (config.height - 100), 'pidgeon');
-        this.arcadeSprite.setVelocityX(-100 - Math.random() * 50);
+        this.arcadeSprite.setVelocityX(-250 - Math.random() * 50);
         this.arcadeSprite.setVelocityY(-Math.random() * 150);
-        this.arcadeSprite.setScale(0.8, 0.8);
-        this.arcadeSprite.body.height *= 0.5;
-        this.arcadeSprite.body.width *= 0.4;
-        this.arcadeSprite.body.offset.x = 15;
-        this.arcadeSprite.body.offset.y = 15;
+        this.arcadeSprite.setScale(1.3, 1.3);
+        this.arcadeSprite.body.setSize(this.arcadeSprite.body.width * 0.6, this.arcadeSprite.body.height * 0.4);
+        this.arcadeSprite.body.setOffset(15, 25);
         this.arcadeSprite.play('flyP');
         this.arcadeSprite.flipX = true;
         this.arcadeSprite.setActive(true);

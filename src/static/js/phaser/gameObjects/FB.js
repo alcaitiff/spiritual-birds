@@ -55,9 +55,11 @@ const FB = {
       bullet(vy, py) {
         const arcadeSprite = player.bulletGroup.create(player.arcadeSprite.x + 20, player.arcadeSprite.y - 20 + py, 'fb');
         if (this.small) {
-          arcadeSprite.setScale(0.3, 0.3);
+          arcadeSprite.setScale(0.6, 0.6);
+        } else {
+          arcadeSprite.setScale(1.5, 1.5);
         }
-        arcadeSprite.setVelocityX(600);
+        arcadeSprite.setVelocityX(900);
         arcadeSprite.setVelocityY(vy);
         arcadeSprite.body.setAllowGravity(false);
         arcadeSprite.play('fb');

@@ -63,12 +63,11 @@ const Eagle = {
       dead: false,
       construct(group) {
         this.arcadeSprite = group.create(config.width + 20, Math.random() * (config.height - 500), 'eagle');
-        this.arcadeSprite.setVelocityX(-100 - Math.random() * 150);
+        this.arcadeSprite.setVelocityX(-200 - Math.random() * 150);
         this.arcadeSprite.setVelocityY(-100 - Math.random() * 150);
-        this.arcadeSprite.body.height *= 0.5;
-        this.arcadeSprite.body.width *= 0.4;
-        this.arcadeSprite.body.offset.x = 15;
-        this.arcadeSprite.body.offset.y = 15;
+        this.arcadeSprite.setScale(1.5, 1.5);
+        this.arcadeSprite.body.setSize(this.arcadeSprite.body.width * 0.4, this.arcadeSprite.body.height * 0.5);
+        this.arcadeSprite.body.setOffset(20, 25);
         this.arcadeSprite.play('flyE');
         this.arcadeSprite.flipX = true;
         this.arcadeSprite.setActive(true);
@@ -121,7 +120,7 @@ const Eagle = {
               this.arcadeSprite.play('diveE');
             }
           } else {
-            this.arcadeSprite.angle = 40;
+            this.arcadeSprite.angle = 20;
           }
         }
         if (

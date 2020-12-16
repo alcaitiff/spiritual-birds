@@ -54,13 +54,12 @@ const Bluebird = {
       dead: false,
       construct(group) {
         this.arcadeSprite = group.create(config.width + 20, Math.random() * (config.height - 200) + 200, 'bluebird');
-        this.arcadeSprite.setVelocityX(-100 - Math.random() * 50);
+        this.arcadeSprite.setVelocityX(-200 - Math.random() * 50);
         this.arcadeSprite.setVelocityY(-Math.random() * 50);
         this.arcadeSprite.body.setAllowGravity(false);
-        this.arcadeSprite.body.height *= 0.5;
-        this.arcadeSprite.body.width *= 0.4;
-        this.arcadeSprite.body.offset.x = 15;
-        this.arcadeSprite.body.offset.y = 15;
+        this.arcadeSprite.setScale(1.5, 1.5);
+        this.arcadeSprite.body.setSize(this.arcadeSprite.body.width * 0.4, this.arcadeSprite.body.height * 0.5);
+        this.arcadeSprite.body.setOffset(20, 15);
         this.arcadeSprite.play('flyB');
         this.arcadeSprite.flipX = true;
         this.arcadeSprite.setActive(true);
@@ -88,7 +87,7 @@ const Bluebird = {
             return { points: 0, drop: null };
           }
         } else {
-          this.arcadeSprite.setVelocityX(-Math.random() * 50);
+          this.arcadeSprite.setVelocityX(-100 - Math.random() * 50);
           return { points: 1, drop: null };
         }
       },
@@ -103,7 +102,7 @@ const Bluebird = {
       },
       update() {
         if (!this.dead) {
-          this.arcadeSprite.setVelocityY(Math.round(Math.cos(this.arcadeSprite.body.x / 36) * 150));
+          this.arcadeSprite.setVelocityY(10 + Math.round(Math.cos(this.arcadeSprite.body.x / 36) * 150));
           this.arcadeSprite.setVelocityX(this.arcadeSprite.body.velocity.x - Math.round(Math.sin(this.arcadeSprite.body.x / 36) * 5));
         }
         if (

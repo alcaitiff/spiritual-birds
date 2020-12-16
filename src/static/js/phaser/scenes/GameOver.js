@@ -8,9 +8,9 @@ const GameOver = {
   create(score) {
     this.BG = BG.create(this, false);
     this.logo = this.add.image(config.width / 2, 200, 'logo');
-    this.text = this.add.text(config.width / 2 - 40, config.height / 2, 'GAME OVER');
-    this.text = this.add.text(config.width / 2 - 30, config.height / 2 + 50, 'SCORE:' + score.value);
-    this.text = this.add.text(config.width / 2 - 100, config.height / 2 + 100, 'PRESS ENTER TO RESTART');
+    this.text = this.add.text(config.width / 2 - 80, config.height / 2, 'GAME OVER', config.textStyle);
+    this.text = this.add.text(config.width / 2 - 50, config.height / 2 + 50, 'SCORE:' + score.value, config.textStyle);
+    this.text = this.add.text(config.width / 2 - 200, config.height / 2 + 100, 'PRESS ENTER TO RESTART', config.textStyle);
     this.input.keyboard.on('keydown-' + 'ENTER', function() {
       this.registry.destroy();
       this.events.off();

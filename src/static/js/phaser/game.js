@@ -12,6 +12,10 @@ const game = {
   backgroundColor: config.backgroundColor,
   cursors: null,
   pixelArt: false,
+  scale: {
+    mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.NO_CENTER
+  },
   physics: {
     default: 'arcade',
     arcade: {

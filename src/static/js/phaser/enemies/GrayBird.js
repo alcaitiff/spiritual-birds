@@ -56,10 +56,9 @@ const GrayBird = {
         this.arcadeSprite = group.create(config.width + 20, Math.random() * config.height, 'graybird');
         this.arcadeSprite.setVelocityX(-300 - Math.random() * 250);
         this.arcadeSprite.setVelocityY(-150 - Math.random() * 100);
-        this.arcadeSprite.body.height *= 0.5;
-        this.arcadeSprite.body.width *= 0.4;
-        this.arcadeSprite.body.offset.x = 15;
-        this.arcadeSprite.body.offset.y = 15;
+        this.arcadeSprite.setScale(1.5, 1.5);
+        this.arcadeSprite.body.setSize(this.arcadeSprite.body.width * 0.4, this.arcadeSprite.body.height * 0.5);
+        this.arcadeSprite.body.setOffset(15, 15);
         this.arcadeSprite.play('flyG');
         this.arcadeSprite.flipX = true;
         this.arcadeSprite.setActive(true);

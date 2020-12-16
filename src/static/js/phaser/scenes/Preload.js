@@ -60,6 +60,11 @@ const Preload = {
       frameHeight: 100
     });
 
+    this.load.spritesheet('orangebird', 'assets/sprites/orangebird.png', {
+      frameWidth: 200,
+      frameHeight: 200
+    });
+
     this.load.spritesheet('pidgeon', 'assets/sprites/pidgeon.png', {
       frameWidth: 80,
       frameHeight: 80

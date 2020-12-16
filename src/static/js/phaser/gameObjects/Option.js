@@ -2,7 +2,7 @@ import FB from './FB';
 const Option = {
   bulletGroup: null,
   maxBullets: 0,
-  flyingState: 1,
+  flyingState: null,
   create(scene, player) {
     const newObj = {
       flyingStates: player.flyingStates,
@@ -17,9 +17,9 @@ const Option = {
       construct(scene, player) {
         this.cursors = player.cursors;
         this.player = player;
-        this.arcadeSprite = scene.physics.add.sprite(player.arcadeSprite.body.x - 30, player.arcadeSprite.body.y + 40, 'player');
+        this.arcadeSprite = scene.physics.add.sprite(player.arcadeSprite.body.x - 45, player.arcadeSprite.body.y + 60, 'player');
         this.arcadeSprite.flipX = true;
-        this.arcadeSprite.setScale(0.4, 0.4);
+        this.arcadeSprite.setScale(0.7, 0.7);
         this.arcadeSprite.body.height *= 0.5;
         this.arcadeSprite.body.width *= 0.4;
         this.arcadeSprite.body.offset.x = 40;

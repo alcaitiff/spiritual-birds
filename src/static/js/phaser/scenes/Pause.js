@@ -7,7 +7,7 @@ const Pause = {
   },
   create() {
     this.BG = BG.create(this, false);
-    this.text = this.add.text(config.width / 2, config.height / 2, 'PAUSE');
+    this.text = this.add.text(config.width / 2 - 50, config.height / 2, 'PAUSE', config.textStyle);
     this.input.keyboard.on('keydown-' + 'P', function() {
       this.scene.wake('Main');
       this.scene.stop();
