@@ -7,8 +7,11 @@ A game made with Phaser 3 and Vuejs.
 ## How to play
 
 Arrows to flap around
+
 "q" to shoot
+
 "w" to use a powerup
+
 "p" to pause
 
 ## Project setup
