@@ -4,14 +4,15 @@ const Preload = {
   preload() {
     const progressBar = this.add.graphics();
     const progressBox = this.add.graphics();
-    const width = config.width;// this.cameras.main.width;
-    const height = config.height;// this.cameras.main.height;
+    const width = this.cameras.main.width;
+    const height = this.cameras.main.height;
+
     progressBox.fillStyle(0x222222, 0.8);
     progressBox.fillRect(width / 2 - 160, height / 2 - 25, 320, 50);
 
     const loadingText = this.make.text({
       x: width / 2,
-      y: height / 2 - 50 + config.top,
+      y: height / 2 - 50 + config.pretop,
       text: 'Loading...',
       style: {
         font: '20px monospace',
@@ -22,7 +23,7 @@ const Preload = {
 
     const percentText = this.make.text({
       x: width / 2,
-      y: height / 2 - 5 + config.top,
+      y: height / 2 - 5 + config.pretop,
       text: '0%',
       style: {
         font: '18px monospace',
@@ -33,7 +34,7 @@ const Preload = {
 
     const assetText = this.make.text({
       x: width / 2,
-      y: height / 2 + 50 + config.top,
+      y: height / 2 + 50 + config.pretop,
       text: '',
       style: {
         font: '18px monospace',
