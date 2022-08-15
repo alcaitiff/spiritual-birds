@@ -40,11 +40,11 @@ const UIController = {
       bullets: [],
       construct(scene, player) {
         this.Player = player;
-        this.scoreText = scene.add.text(config.width / 2 - 40, 10, 'SCORE:  ' + this.Player.score, config.textStyle);
-        this.bulletsText = scene.add.text(config.width - 550, 10, '', config.textStyle);
-        this.HPText = scene.add.text(20, 10, '', config.textStyle);
-        this.PowerUPText = scene.add.text(20, 30, '', config.textStyle);
-        this.HelpText = scene.add.text(50, config.height - 300, '', config.textStyle);
+        this.scoreText = scene.add.text(config.width / 2 - 40, 10 + config.top, 'SCORE:  ' + this.Player.score, config.textStyle);
+        this.bulletsText = scene.add.text(config.width - 550, 10 + config.top, '', config.textStyle);
+        this.HPText = scene.add.text(20, 10 + config.top, '', config.textStyle);
+        this.PowerUPText = scene.add.text(20, 30 + config.top, '', config.textStyle);
+        this.HelpText = scene.add.text(50, config.height - 300 + config.top, '', config.textStyle);
         this.LifeBar = LifeBar.create(scene, 100, 12);
         this.PowerUPWheel = PowerUPWheel.create(scene, player);
         return this;

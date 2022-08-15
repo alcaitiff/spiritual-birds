@@ -1,6 +1,7 @@
 {
   "width": 1920,
   "height": 1080,
+  "top":-200,
   "backgroundColor": "#3b9444",
   "debug": false,
   "gravity": 150,

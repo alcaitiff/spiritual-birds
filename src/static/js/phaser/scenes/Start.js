@@ -11,7 +11,7 @@ const Start = {
     this.music.play();
     this.BG = BG.create(this, false);
     this.logo = this.add.image(config.width / 2, 300, 'logo');
-    this.text = this.add.text(config.width / 2 - 200, config.height / 2, 'PRESS ENTER TO START', config.textStyle);
+    this.text = this.add.text(config.width / 2 - 200, config.height / 2 + 100 + config.top, 'PRESS ENTER TO START', config.textStyle);
     this.input.keyboard.on('keydown-' + 'ENTER', function() {
       this.music.stop();
       this.registry.destroy();
